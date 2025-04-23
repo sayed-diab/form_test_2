@@ -143,15 +143,12 @@
             transition: color 0.3s, border-color 0.3s;
             text-align: center;
             font-family: 'Tajawal', 'Inter', sans-serif !important;
-
         }
 
         h4 {
             font-family: 'Tajawal', 'Inter', sans-serif !important;
-
             margin-top: 25px;
             margin-bottom: 20px;
-            /* border-bottom: 1px solid var(--border-color); */
             padding-bottom: 8px;
             color: var(--text-color);
             font-weight: 700;
@@ -164,6 +161,33 @@
 
         .form-group {
             margin-bottom: 18px;
+            position: relative;
+            /* display: inline-block; */
+            width: 100%;
+        }
+
+        .select-icon {
+            transition: all 0.3s;
+        }
+
+        body[dir="ltr"] .select-icon::after {
+            right: 20px;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='currentColor' viewBox='0 0 16 16'%3E%3Cpath fill-rule='evenodd' d='M2 13.5a.5.5 0 0 0 .5.5h6a.5.5 0 0 0 0-1H3.707L13.854 2.854a.5.5 0 0 0-.708-.708L3 12.293V7.5a.5.5 0 0 0-1 0z'/%3E%3C/svg%3E");
+
+        }
+
+        .select-icon::after {
+            transition: all 0.3s;
+            content: "";
+            position: absolute;
+            top: 50%;
+            left: 20px;
+            transform: translateY(50%);
+            width: 14px;
+            height: 14px;
+            background-repeat: no-repeat;
+            pointer-events: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' fill='currentColor' viewBox='0 0 16 16'%3E%3Cpath fill-rule='evenodd' d='M14 13.5a.5.5 0 0 1-.5.5h-6a.5.5 0 0 1 0-1h4.793L2.146 2.854a.5.5 0 1 1 .708-.708L13 12.293V7.5a.5.5 0 0 1 1 0z'/%3E%3C/svg%3E");
         }
 
         .form-group label {
@@ -187,7 +211,7 @@
             text-align: right;
         }
 
-        body[dir="ltr"] .ui.selection.dropdown {
+        body[dir="ltr"] .ui.dropdown {
             text-align: left;
 
             .dropdown.icon {
@@ -196,18 +220,28 @@
             }
         }
 
-        .ui.selection.dropdown {
+        .ui.dropdown {
             text-align: right;
             padding-right: 1rem !important;
+            width: 100%;
+            padding-right: 30px;
+            /* make space for icon */
+            appearance: none;
+            /* remove default arrow */
+            -webkit-appearance: none;
+            /* for Safari */
+            -moz-appearance: none;
 
+            /* for Firefox */
             .dropdown.icon {
                 left: 1rem !important;
                 right: auto !important;
             }
         }
 
-        body[dir="ltr"] .ui.dropdown>.dropdown.icon:before {
-            content: '\f0d7';
+        body[dir="ltr"] .ui.dropdown>.dropdown.icon::before {
+            content: '';
+            display: none;
         }
 
         .ui.dropdown>.dropdown.icon {
@@ -215,8 +249,9 @@
             /* font-size: 18px; */
         }
 
-        .ui.dropdown>.dropdown.icon:before {
-            content: '\f0d7';
+        .ui.dropdown>.dropdown.icon::before {
+            display: none;
+
         }
 
         input[type="text"],
@@ -379,7 +414,6 @@
             background-color: var(--input-bg-color);
             border-radius: 8px;
             border-radius: 10px;
-
         }
 
         .toggle-buttons {
@@ -402,10 +436,8 @@
             border: 1px solid;
             border-color: var(--border-color-input) !important;
             font-size: 0.8rem;
-            height: 30px;
-            width: 30px;
+            padding: 5px 10px;
             text-align: center;
-            display: inline-block;
             background-color: white !important;
             cursor: pointer;
             transition: background-color 0.3s, color 0.3s;
@@ -496,10 +528,21 @@
 
         @media (max-width: 1366px) {
             .overall-wraper {
-                max-width: 90% !important;
-
+                max-width: 95% !important;
+                padding: 10px 10px;
             }
 
+        }
+
+        @media (max-width: 1200px) and (min-width: 1075px) {
+            .overall-wraper {
+                max-width: 95% !important;
+                padding: 10px 0px;
+            }
+
+            form {
+                padding: 0px 0 !important;
+            }
         }
 
         @media (max-width: 1075px) {
@@ -570,8 +613,7 @@
             }
 
             .toggle-button {
-                height: 25px !important;
-                width: 25px !important;
+
                 font-size: 0.6rem !important;
             }
 
@@ -659,14 +701,19 @@
             <div class="form-card">
                 <h4 id="section3TitleEl" data-translate-key="section3Title">3. النبرة والأسلوب</h4>
                 <div class="form-row">
-                    <div class="col-md-6 form-group"> <label for="language" data-translate-key="outputLanguageLabel">لغة
-                            المخرجات:</label> <select class="form-control ui dropdown" id="language" name="language">
+                    <div class="col-md-6 form-group select-icon"> <label for="language"
+                            data-translate-key="outputLanguageLabel">لغة
+                            المخرجات:</label>
+                        <select class="form-control ui dropdown" id="language" name="language">
                             <option value="عربي" selected data-translate-key="langArabic">عربي</option>
                             <option value="English" data-translate-key="langEnglish">English</option>
-                        </select> </div>
-                    <div class="col-md-6 form-group"> <label for="dialect" data-translate-key="dialectLabel">اللهجة (إذا
+                        </select>
+                    </div>
+                    <div class="col-md-6 form-group select-icon"> <label for="dialect"
+                            data-translate-key="dialectLabel">اللهجة (إذا
                             كانت
-                            عربية):</label> <select class="form-control ui dropdown" id="dialect" name="dialect">
+                            عربية):</label>
+                        <select class="form-control ui dropdown" id="dialect" name="dialect">
                             <option value="الفصحى" data-translate-key="dialectFusha">الفصحى</option>
                             <option value="السعودية - بيضاء" selected data-translate-key="dialectSaudiWhite">السعودية -
                                 بيضاء
@@ -678,11 +725,14 @@
                             <option value="خليجية (عامة)" data-translate-key="dialectGulf">خليجية (عامة)</option>
                             <option value="مصرية" data-translate-key="dialectEgyptian">مصرية</option>
                             <option value="شامية" data-translate-key="dialectLevantine">شامية</option>
-                        </select> </div>
+                        </select>
+                    </div>
                 </div>
                 <div class="form-row">
-                    <div class="col-md-6 form-group"> <label for="toneVoice" data-translate-key="toneVoiceLabel">نبرة
-                            الكلام:</label> <select class="form-control ui dropdown" id="toneVoice" name="toneVoice">
+                    <div class="col-md-6 form-group select-icon">
+                        <label for="toneVoice" data-translate-key="toneVoiceLabel">نبرة
+                            الكلام:</label>
+                        <select class="form-control ui dropdown" id="toneVoice" name="toneVoice">
                             <option value="" data-translate-key="selectOption">-- اختر --</option>
                             <option value="واثق" data-translate-key="toneConfident">واثق</option>
                             <option value="محايد" selected data-translate-key="toneNeutral">محايد</option>
@@ -691,9 +741,12 @@
                             <option value="حماسي" data-translate-key="toneEnthusiastic">حماسي</option>
                             <option value="متعاطف" data-translate-key="toneEmpathetic">متعاطف</option>
                             <option value="فكاهي" data-translate-key="toneHumorous">فكاهي</option>
-                        </select> </div>
-                    <div class="col-md-6 form-group"> <label for="toneStyle" data-translate-key="toneStyleLabel">أسلوب
-                            الكتابة:</label> <select class="form-control ui dropdown" id="toneStyle" name="toneStyle">
+                        </select>
+                    </div>
+                    <div class="col-md-6 form-group select-icon">
+                        <label for="toneStyle" data-translate-key="toneStyleLabel">أسلوب
+                            الكتابة:</label>
+                        <select class="form-control ui dropdown" id="toneStyle" name="toneStyle">
                             <option value="" data-translate-key="selectOption">-- اختر --</option>
                             <option value="واضح ومباشر" selected data-translate-key="styleClear">واضح ومباشر</option>
                             <option value="إبداعي ومبتكر" data-translate-key="styleCreative">إبداعي ومبتكر</option>
@@ -703,21 +756,24 @@
                             <option value="تعليمي وتثقيفي" data-translate-key="styleEducational">تعليمي وتثقيفي</option>
                             <option value="مقنع (Persuasive)" data-translate-key="stylePersuasive">مقنع (Persuasive)
                             </option>
-                        </select> </div>
+                        </select>
+                    </div>
                 </div>
                 <div class="form-row">
-                    <div class="col-md-6 form-group"> <label for="toneFormality"
-                            data-translate-key="toneFormalityLabel">مستوى
-                            الرسمية:</label> <select class="form-control ui dropdown" id="toneFormality"
-                            name="toneFormality">
+                    <div class="col-md-6 form-group select-icon">
+                        <label for="toneFormality" data-translate-key="toneFormalityLabel">مستوى
+                            الرسمية:</label>
+                        <select class="form-control ui dropdown" id="toneFormality" name="toneFormality">
                             <option value="" data-translate-key="selectOption">-- اختر --</option>
                             <option value="عفوي وغير رسمي" data-translate-key="formalityCasual">عفوي وغير رسمي</option>
                             <option value="متوازن" selected data-translate-key="formalityBalanced">متوازن</option>
                             <option value="رسمي" data-translate-key="formalityFormal">رسمي</option>
-                        </select> </div>
-                    <div class="col-md-6 form-group"> <label for="tonePersonality"
-                            data-translate-key="tonePersonalityLabel">شخصية العلامة التجارية:</label> <select
-                            class="form-control ui dropdown" id="tonePersonality" name="tonePersonality">
+                        </select>
+                    </div>
+                    <div class="col-md-6 form-group select-icon">
+                        <label for="tonePersonality" data-translate-key="tonePersonalityLabel">شخصية العلامة
+                            التجارية:</label>
+                        <select class="form-control ui dropdown" id="tonePersonality" name="tonePersonality">
                             <option value="" data-translate-key="selectOption">-- اختر --</option>
                             <option value="قريب من الناس ومتعاون" data-translate-key="personalityApproachable">قريب من
                                 الناس
@@ -731,7 +787,8 @@
                             <option value="ملهمة ومحفزة" data-translate-key="personalityInspirational">ملهمة ومحفزة
                             </option>
                             <option value="مرحة ومبتكرة" data-translate-key="personalityPlayful">مرحة ومبتكرة</option>
-                        </select> </div>
+                        </select>
+                    </div>
                 </div>
 
             </div>
@@ -739,7 +796,7 @@
             <div class="form-card">
                 <h4 id="section4TitleEl" data-translate-key="section4Title">4. طلب التوليد</h4>
                 <div class="form-row">
-                    <div class="col-md-6 form-group">
+                    <div class="col-md-6 form-group select-icon">
                         <label for="generationType" data-translate-key="generationTypeLabel">نوع التوليد
                             المطلوب:</label>
                         <select class="form-control ui dropdown" id="generationType" name="generationType">
@@ -801,10 +858,11 @@
                             class="form-control" id="numDays" name="numDays" value="30" min="1"> </div>
                 </div>
                 <div class="form-row conditional-field" id="adTypeRow">
-                    <div class="col-md-6 form-group"> <label for="adType" data-translate-key="adTypeLabel">نوع/هيكل
+                    <div class="col-md-6 form-group select-icon">
+                        <label for="adType" data-translate-key="adTypeLabel">نوع/هيكل
                             الإعلان
-                            (للإعلانات/الحملة):</label> <select class="form-control ui dropdown" id="adType"
-                            name="adType">
+                            (للإعلانات/الحملة):</label>
+                        <select class="form-control ui dropdown" id="adType" name="adType">
                             <option value="عام" selected data-translate-key="adTypeGeneral">عام</option>
                             <option value="AIDA">AIDA</option>
                             <option value="PAS">PAS</option>
@@ -812,7 +870,8 @@
                             <option value="Reason Why">Reason Why</option>
                             <option value="Classic idea">Classic idea</option>
                             <option value="Hook – Feature CTA">Hook – Feature CTA</option>
-                        </select> </div>
+                        </select>
+                    </div>
                     <div class="col-md-6 form-group"> <label for="adStructureDesc"
                             data-translate-key="adStructureDescLabel">وصف
                             إضافي لهيكل الإعلان:</label> <input type="text" class="form-control" id="adStructureDesc"
