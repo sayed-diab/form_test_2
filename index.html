@@ -1,0 +1,835 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <base target="_top">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+
+    <style>
+        /* --- CSS Variables and Styles --- */
+        :root {
+            /* Light */
+            --bg-color: #e0e0e0;
+            --form-bg-color: #ffffff;
+            --text-color: #333333;
+            --muted-text-color: #6c757d;
+            --primary-color: #262954;
+            --accent-color: #4D5BFF;
+            --border-color: White;
+            --border-color-input: #8d8b8b;
+            --border-color-card: rgba(255, 255, 255, 0.3);
+            --input-bg-color: #ffffff;
+            --input-focus-bg: #ffffff;
+            --input-focus-border: #80bdff;
+            --button-bg: var(--primary-color);
+            --button-text: #ffffff;
+            --button-hover-bg: #15162e;
+            --success-color: #28a745;
+            --success-bg: #D4EDDA;
+            --success-border: #C3E6CB;
+            --error-color: #dc3545;
+            --error-bg: #F8D7DA;
+            --error-border: #F5C6CB;
+            --loading-color: #A0522D;
+            --loading-bg: #FFF3CD;
+            --loading-border: #FFEEBA;
+        }
+
+        [data-theme="dark"] {
+            /* Dark */
+            --bg-color: #16153D;
+            --form-bg-color: #16153D;
+            --text-color: #FFFFFF;
+            --muted-text-color: #B0B0D0;
+            --primary-color: #4D5BFF;
+            --accent-color: #6977ff;
+            --border-color: #2a2a5e;
+            --border-color-card: White;
+            --input-bg-color: #201f4a;
+            --input-focus-bg: var(--bg-color);
+            --input-focus-border: var(--primary-color);
+            --button-bg: var(--primary-color);
+            --button-text: #ffffff;
+            --button-hover-bg: var(--accent-color);
+            --success-color: #00E676;
+            --success-bg: rgba(0, 230, 118, 0.1);
+            --success-border: var(--success-color);
+            --error-color: #FF5252;
+            --error-bg: rgba(255, 82, 82, 0.1);
+            --error-border: var(--error-color);
+            --loading-color: #FFD740;
+            --loading-bg: rgba(255, 215, 64, 0.1);
+            --loading-border: var(--loading-color);
+        }
+
+        body {
+            font-family: 'Tajawal', 'Inter', sans-serif;
+            padding: 20px;
+            background-color: var(--bg-color);
+            background-image: url('https://res.cloudinary.com/dmijzhuyq/image/upload/v1745357858/WhatsApp_Image_2025-04-22_at_22.35.58_c9b26efe_d1mjid.webp');
+            color: var(--text-color);
+            background-attachment: fixed;
+            background-repeat: no-repeat;
+            background-position: center !important;
+            background-size: contain;
+            font-size: 15px;
+            line-height: 1.6;
+            transition: background-color 0.3s, color 0.3s;
+            box-sizing: border-box;
+        }
+
+        body[dir="rtl"] {
+            text-align: right;
+        }
+
+        body[dir="ltr"] {
+            text-align: left;
+        }
+
+        body[dir="ltr"] .form-group label {
+            text-align: left;
+        }
+
+        body[dir="ltr"] h4 {
+            text-align: left;
+        }
+
+        .form-group label {
+            text-align: right;
+        }
+
+        h4 {
+            text-align: right;
+        }
+
+        body[dir="ltr"] select.form-control {
+            background-position: right .9rem center !important;
+            padding-left: 12px !important;
+            padding-right: 2.5rem !important;
+        }
+
+        body[dir="rtl"] select.form-control {
+            background-position: left .9rem center !important;
+            padding-right: 12px !important;
+            padding-left: 2.5rem !important;
+        }
+
+        form {
+            padding: 15px;
+            transition: background-color 0.3s;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 30px;
+            flex-direction: row-reverse;
+        }
+
+        [data-theme="light"] form {
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        }
+
+        h3 {
+            color: var(--text-color);
+            font-weight: 700;
+            margin: 0px !important;
+            transition: color 0.3s, border-color 0.3s;
+            text-align: center;
+        }
+
+        h4 {
+            margin-top: 25px;
+            margin-bottom: 20px;
+            /* border-bottom: 1px solid var(--border-color); */
+            padding-bottom: 8px;
+            color: var(--primary-color);
+            font-weight: 700;
+            transition: color 0.3s, border-color 0.3s;
+        }
+
+        h4:first-of-type {
+            margin-top: 0;
+        }
+
+        .form-group {
+            margin-bottom: 18px;
+        }
+
+        .form-group label {
+            font-weight: 500;
+            color: var(--muted-text-color);
+            margin-bottom: 8px;
+            display: block;
+            font-size: 14px;
+            transition: color 0.3s;
+        }
+
+        input[type="text"],
+        input[type="number"],
+        input[type="url"],
+        select.form-control,
+        textarea.form-control {
+            font-size: 15px;
+            background-color: transparent;
+            transition: all 0.3s;
+            border-color: transparent;
+            border-bottom: 1.2px solid var(--border-color-input);
+            border-radius: 5px 5px 0 0 !important;
+            box-shadow: inset 18px 22px 84px -15px rgba(0, 0, 0, 0.100);
+
+        }
+
+        input[type="text"]:focus,
+        input[type="number"]:focus,
+        input[type="url"]:focus,
+        select.form-control:focus,
+        textarea.form-control:focus {
+            border-color: var(--input-focus-border);
+            background-color: var(--bg-color);
+            box-shadow: none;
+            outline: none;
+            border-color: transparent transparent var(--border-color-input) transparent;
+            caret-color: var(--primary-color);
+            box-shadow: inset 18px 22px 84px -15px rgba(0, 0, 0, 0.10);
+        }
+
+        input[type="text"]:hover,
+        input[type="number"]:hover,
+        input[type="url"]:hover,
+        select.form-control:hover,
+        textarea.form-control:hover {
+            border-color: var(--input-focus-border);
+            background-color: var(--bg-color);
+            box-shadow: none;
+            outline: none;
+            border-color: transparent transparent var(--border-color-input) transparent;
+            box-shadow: inset 18px 22px 84px -15px rgba(0, 0, 0, 0.10);
+        }
+
+        input::placeholder,
+        textarea::placeholder {
+            color: var(--muted-text-color);
+            opacity: 0.7;
+        }
+
+        input:-ms-input-placeholder,
+        textarea:-ms-input-placeholder {
+            color: var(--muted-text-color);
+        }
+
+        input::-ms-input-placeholder,
+        textarea::-ms-input-placeholder {
+            color: var(--muted-text-color);
+        }
+
+        select.form-control {
+            appearance: none;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%23262954' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M2 5l6 6 6-6'/%3e%3c/svg%3e");
+            background-repeat: no-repeat;
+            background-size: 16px 12px;
+            background-position: left 10px center;
+
+        }
+
+        select.form-control option {
+            background-color: var(--input-bg-color);
+            color: var(--text-color);
+        }
+
+        textarea.form-control {
+            resize: vertical;
+            min-height: 80px;
+        }
+
+        button#submitButton {
+            font-size: 1rem;
+            font-weight: 700;
+            background-color: var(--button-bg);
+            border: none;
+            color: var(--button-text);
+            padding: 10px 35px;
+            border-radius: 6px;
+            transition: background-color 0.2s, transform 0.1s;
+            cursor: pointer;
+        }
+
+        button#submitButton:hover {
+            background-color: var(--button-hover-bg);
+            transform: translateY(-1px);
+        }
+
+        button#submitButton:disabled {
+            background-color: var(--muted-text-color);
+            opacity: 0.7;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        #status {
+            margin-top: 20px;
+            font-weight: 500;
+            text-align: center;
+            min-height: 24px;
+            padding: 10px 15px;
+            border-radius: 6px;
+            display: none;
+            transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+        }
+
+        #status.loading,
+        #status.success,
+        #status.error {
+            display: block;
+        }
+
+        #status.loading {
+            color: var(--loading-color);
+            background-color: var(--loading-bg);
+            border: 1px solid var(--loading-border);
+        }
+
+        #status.success {
+            color: var(--success-color);
+            background-color: var(--success-bg);
+            border: 1px solid var(--success-border);
+        }
+
+        #status.error {
+            color: var(--error-color);
+            background-color: var(--error-bg);
+            border: 1px solid var(--error-border);
+        }
+
+        .form-row {
+            margin-bottom: 15px;
+            gap: 20px;
+            display: flex;
+            flex-wrap: nowrap;
+        }
+
+        .conditional-field {
+            display: none;
+        }
+
+        .toggle-buttons {
+            position: absolute;
+            top: 10px;
+            z-index: 10;
+            display: flex;
+            gap: 5px;
+        }
+
+        body[dir="rtl"] .toggle-buttons {
+            left: 10px;
+        }
+
+        body[dir="ltr"] .toggle-buttons {
+            right: 10px;
+        }
+
+        .toggle-button {
+            font-size: 0.8rem;
+            padding: 4px 8px;
+            background-color: var(--input-bg-color);
+            color: var(--muted-text-color);
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        .toggle-button:hover {
+            background-color: var(--border-color);
+            color: var(--text-color);
+        }
+
+        #logo-container-wrapper {
+            text-align: center !important;
+            transition: border-color 0.3s;
+            height: 500px;
+            position: relative;
+        }
+
+        body[dir="ltr"] #logo-container {
+            justify-content: start;
+        }
+
+        #logo-container {
+            padding: 5px;
+            border-radius: 4px;
+            display: flex;
+            background-color: transparent;
+            align-items: center;
+            justify-content: end;
+            transition: background-color 0.3s;
+            line-height: 0;
+            position: sticky;
+            top: 0;
+        }
+
+        [data-theme="dark"] #logo-container {
+            /* background-color: #ffffff; */
+        }
+
+        #logo-image {
+            vertical-align: middle;
+
+        }
+
+        .overall-wraper {
+            max-width: 80%;
+            margin: 0 auto;
+            border: 10px solid var(--border-color);
+            border-radius: 50px;
+            padding: 10px 30px;
+            margin-top: 40px;
+        }
+
+        body[dir="ltr"] .form-card {
+            direction: ltr;
+        }
+
+        .form-card {
+            direction: rtl;
+            width: calc(50% - 30px);
+            padding: 40px;
+            border-radius: 20px;
+            border: 1px solid var(--border-color-card);
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 16px;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        @media (max-width: 1366px) {
+            .overall-wraper {
+                max-width: 90% !important;
+
+            }
+
+        }
+
+        @media (max-width: 1075px) {
+            .form-card {
+                width: 100%;
+            }
+
+        }
+
+
+        @media (max-width: 768px) {
+            .overall-wraper {
+                max-width: 100% !important;
+                border: none !important;
+                margin-top: 0;
+            }
+
+            .form-group label {
+                font-weight: 900;
+                font-size: 16px !important;
+            }
+
+            #logo-container {
+                justify-content: center !important;
+                flex-direction: column;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .overall-wraper {
+                padding: 10px 0px;
+                border: none !important;
+            }
+
+            form {
+                padding: 10px 0 !important;
+                flex-direction: column !important;
+            }
+
+            .main-title {
+                font-size: 20px !important;
+            }
+
+            h4 {
+                font-size: 18px !important;
+            }
+
+            .form-group label {
+                font-size: 13px !important;
+            }
+
+            .form-row {
+                flex-wrap: wrap !important;
+            }
+        }
+
+        @media (max-width: 430px) {
+            .form-card {
+                padding: 30px !important;
+            }
+
+            .main-title {
+                font-size: 14px !important;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="toggle-buttons"> <button type="button" id="theme-toggle-button" class="toggle-button">☀</button> <button
+            type="button" id="lang-toggle-button" class="toggle-button">🇬🇧</button> </div>
+    <div class="overall-wraper">
+
+        <div id="logo-container-wrapper">
+            <div id="logo-container">
+                <img id="logo-image"
+                    src="https://res.cloudinary.com/dmijzhuyq/image/upload/v1745359305/750607235_fjwd99.png"
+                    alt="شعار وكالة سحاب" style="max-width: 200px; max-height: 80px;">
+                <h3 class="main-title" id="main-title" data-translate-key="mainTitle"> مولد المحتوى الذكي لوكالة سحاب
+                </h3>
+            </div>
+        </div>
+
+        <form id="inputForm">
+            <div class="form-card">
+                <h4 id="section1TitleEl" data-translate-key="section1Title">1. معلومات المشروع</h4>
+                <div class="form-row">
+                    <div class="col-md-6 form-group"> <label for="projectName" data-translate-key="projectNameLabel">اسم
+                            المشروع:</label> <input type="text" class="form-control" id="projectName" name="projectName"
+                            required> </div>
+                    <div class="col-md-6 form-group"> <label for="businessType"
+                            data-translate-key="businessTypeLabel">نوع
+                            النشاط:</label> <input type="text" class="form-control" id="businessType"
+                            name="businessType">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="col-md-6 form-group"> <label for="targetMarket"
+                            data-translate-key="targetMarketLabel">السوق
+                            المستهدف:</label> <input type="text" class="form-control" id="targetMarket"
+                            name="targetMarket">
+                    </div>
+                    <div class="col-md-6 form-group"> <label for="competitors"
+                            data-translate-key="competitorsLabel">المنافسون:</label> <input type="text"
+                            class="form-control" id="competitors" name="competitors"> </div>
+                </div>
+                <div class="form-group"> <label for="projectDescription"
+                        data-translate-key="projectDescriptionLabel">وصف
+                        المشروع/المنتج/الخدمة:</label> <textarea class="form-control" id="projectDescription"
+                        name="projectDescription" rows="3"></textarea> </div>
+                <div class="form-group"> <label for="websiteLink" data-translate-key="websiteLinkLabel">رابط الموقع (إن
+                        وجد):</label> <input type="url" class="form-control" id="websiteLink" name="websiteLink"
+                        placeholder="https://example.com"> </div>
+
+            </div>
+            <div class="form-card">
+
+                <h4 id="section2TitleEl" data-translate-key="section2Title">2. الجمهور المستهدف</h4>
+                <div class="form-group"> <label for="audienceDemographics"
+                        data-translate-key="audienceDemographicsLabel">الجمهور
+                        (الديموغرافيا/الاهتمامات/الاحتياجات):</label>
+                    <textarea class="form-control" id="audienceDemographics" name="audienceDemographics"
+                        rows="2"></textarea>
+                </div>
+                <div class="form-group"> <label for="audienceStrength" data-translate-key="audienceStrengthLabel">نقاط
+                        القوة/الميزة التنافسية للتركيز عليها:</label> <textarea class="form-control"
+                        id="audienceStrength" name="audienceStrength" rows="2"></textarea> </div>
+
+            </div>
+            <div class="form-card">
+                <h4 id="section3TitleEl" data-translate-key="section3Title">3. النبرة والأسلوب</h4>
+                <div class="form-row">
+                    <div class="col-md-6 form-group"> <label for="language" data-translate-key="outputLanguageLabel">لغة
+                            المخرجات:</label> <select class="form-control" id="language" name="language">
+                            <option value="عربي" selected data-translate-key="langArabic">عربي</option>
+                            <option value="English" data-translate-key="langEnglish">English</option>
+                        </select> </div>
+                    <div class="col-md-6 form-group"> <label for="dialect" data-translate-key="dialectLabel">اللهجة (إذا
+                            كانت
+                            عربية):</label> <select class="form-control" id="dialect" name="dialect">
+                            <option value="الفصحى" data-translate-key="dialectFusha">الفصحى</option>
+                            <option value="السعودية - بيضاء" selected data-translate-key="dialectSaudiWhite">السعودية -
+                                بيضاء
+                            </option>
+                            <option value="السعودية - نجدية" data-translate-key="dialectSaudiNajdi">السعودية - نجدية
+                            </option>
+                            <option value="السعودية - حجازية" data-translate-key="dialectSaudiHejazi">السعودية - حجازية
+                            </option>
+                            <option value="خليجية (عامة)" data-translate-key="dialectGulf">خليجية (عامة)</option>
+                            <option value="مصرية" data-translate-key="dialectEgyptian">مصرية</option>
+                            <option value="شامية" data-translate-key="dialectLevantine">شامية</option>
+                        </select> </div>
+                </div>
+                <div class="form-row">
+                    <div class="col-md-6 form-group"> <label for="toneVoice" data-translate-key="toneVoiceLabel">نبرة
+                            الكلام:</label> <select class="form-control" id="toneVoice" name="toneVoice">
+                            <option value="" data-translate-key="selectOption">-- اختر --</option>
+                            <option value="واثق" data-translate-key="toneConfident">واثق</option>
+                            <option value="محايد" selected data-translate-key="toneNeutral">محايد</option>
+                            <option value="ودي" data-translate-key="toneFriendly">ودي</option>
+                            <option value="غير رسمي" data-translate-key="toneInformal">غير رسمي</option>
+                            <option value="حماسي" data-translate-key="toneEnthusiastic">حماسي</option>
+                            <option value="متعاطف" data-translate-key="toneEmpathetic">متعاطف</option>
+                            <option value="فكاهي" data-translate-key="toneHumorous">فكاهي</option>
+                        </select> </div>
+                    <div class="col-md-6 form-group"> <label for="toneStyle" data-translate-key="toneStyleLabel">أسلوب
+                            الكتابة:</label> <select class="form-control" id="toneStyle" name="toneStyle">
+                            <option value="" data-translate-key="selectOption">-- اختر --</option>
+                            <option value="واضح ومباشر" selected data-translate-key="styleClear">واضح ومباشر</option>
+                            <option value="إبداعي ومبتكر" data-translate-key="styleCreative">إبداعي ومبتكر</option>
+                            <option value="قصصي (Storytelling)" data-translate-key="styleStorytelling">قصصي
+                                (Storytelling)
+                            </option>
+                            <option value="تعليمي وتثقيفي" data-translate-key="styleEducational">تعليمي وتثقيفي</option>
+                            <option value="مقنع (Persuasive)" data-translate-key="stylePersuasive">مقنع (Persuasive)
+                            </option>
+                        </select> </div>
+                </div>
+                <div class="form-row">
+                    <div class="col-md-6 form-group"> <label for="toneFormality"
+                            data-translate-key="toneFormalityLabel">مستوى
+                            الرسمية:</label> <select class="form-control" id="toneFormality" name="toneFormality">
+                            <option value="" data-translate-key="selectOption">-- اختر --</option>
+                            <option value="عفوي وغير رسمي" data-translate-key="formalityCasual">عفوي وغير رسمي</option>
+                            <option value="متوازن" selected data-translate-key="formalityBalanced">متوازن</option>
+                            <option value="رسمي" data-translate-key="formalityFormal">رسمي</option>
+                        </select> </div>
+                    <div class="col-md-6 form-group"> <label for="tonePersonality"
+                            data-translate-key="tonePersonalityLabel">شخصية العلامة التجارية:</label> <select
+                            class="form-control" id="tonePersonality" name="tonePersonality">
+                            <option value="" data-translate-key="selectOption">-- اختر --</option>
+                            <option value="قريب من الناس ومتعاون" data-translate-key="personalityApproachable">قريب من
+                                الناس
+                                ومتعاون</option>
+                            <option value="احترافية وموثوقة" selected data-translate-key="personalityProfessional">
+                                احترافية
+                                وموثوقة</option>
+                            <option value="شبابية وعصرية" data-translate-key="personalityYouthful">شبابية وعصرية
+                            </option>
+                            <option value="فاخرة وحصرية" data-translate-key="personalityLuxury">فاخرة وحصرية</option>
+                            <option value="ملهمة ومحفزة" data-translate-key="personalityInspirational">ملهمة ومحفزة
+                            </option>
+                            <option value="مرحة ومبتكرة" data-translate-key="personalityPlayful">مرحة ومبتكرة</option>
+                        </select> </div>
+                </div>
+
+            </div>
+
+            <div class="form-card">
+                <h4 id="section4TitleEl" data-translate-key="section4Title">4. طلب التوليد</h4>
+                <div class="form-row">
+                    <div class="col-md-6 form-group">
+                        <label for="generationType" data-translate-key="generationTypeLabel">نوع التوليد
+                            المطلوب:</label>
+                        <select class="form-control" id="generationType" name="generationType">
+                            <option value="خطة محتوى شهري" selected data-translate-key="genTypeMonthlyPlan">خطة محتوى
+                                شهري
+                            </option>
+                            <option value="توليد إعلانات" data-translate-key="genTypeAds">توليد إعلانات</option>
+                            <option value="توليد أفكار" data-translate-key="genTypeIdeas">توليد أفكار</option>
+                            <option value="حملة اعلانيه" data-translate-key="genTypeCampaign">حملة اعلانية</option>
+                            <option value="تحليل SWOT" data-translate-key="genTypeSwot">تحليل SWOT</option>
+                            <option value="وصف شخصية العميل المثالي" data-translate-key="genTypePersona">وصف شخصية
+                                العميل
+                                المثالي</option>
+                            <option value="اقتراح أهداف تسويقية (SMART)" data-translate-key="genTypeGoals">اقتراح أهداف
+                                تسويقية
+                                (SMART)</option>
+                            <option value="تحليل المنافسين" data-translate-key="genTypeCompetitor">تحليل المنافسين
+                            </option>
+                            <option value="تحديد الميزة التنافسية" data-translate-key="genTypeAdvantage">تحديد الميزة
+                                التنافسية
+                            </option>
+                            <option value="استراتيجية منصات التواصل" data-translate-key="genTypePlatformStrategy">
+                                استراتيجية
+                                منصات التواصل</option>
+                            <option value="محاور المحتوى الرئيسية" data-translate-key="genTypePillars">محاور المحتوى
+                                الرئيسية
+                            </option>
+                            <option value="مقترحات تكتيكية" data-translate-key="genTypeTactics">مقترحات تكتيكية</option>
+                            <option value="وصف منتجات" data-translate-key="genTypeProdDesc">وصف منتجات</option>
+                            <option value="أسئلة شائعة (FAQ)" data-translate-key="genTypeFAQ">أسئلة شائعة (FAQ)</option>
+                            <option value="أفكار مدونة" data-translate-key="genTypeBlogIdeas">أفكار مدونة</option>
+                            <option value="نصوص بريد إلكتروني" data-translate-key="genTypeEmailCopy">نصوص بريد إلكتروني
+                            </option>
+                            <option value="محتوى صفحات هبوط" data-translate-key="genTypeLandingPage">محتوى صفحات هبوط
+                            </option>
+                            <option value="نصوص وأفكار بنرات متاجر" data-translate-key="genTypeStoreBanners">نصوص وأفكار
+                                بنرات
+                                متاجر</option>
+                            <option value="نقاط رئيسية للصفحة التعريفية" data-translate-key="genTypeAboutPoints">نقاط
+                                رئيسية
+                                للصفحة التعريفية</option>
+                        </select>
+                    </div>
+                    <div class="col-md-6 form-group">
+                        <label for="contentGoal" data-translate-key="contentGoalLabel">الهدف من هذا
+                            المحتوى/الطلب:</label>
+                        <input type="text" class="form-control" id="contentGoal" name="contentGoal"
+                            placeholder="مثال: زيادة الوعي, جذب عملاء جدد, زيادة التفاعل"
+                            data-translate-placeholder-key="contentGoalPlaceholder">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="col-md-6 form-group"> <label for="numContent" data-translate-key="numContentLabel">العدد
+                            المطلوب
+                            (أفكار/إعلانات/نقاط..):</label> <input type="number" class="form-control" id="numContent"
+                            name="numContent" value="10" min="1"> </div>
+                    <div class="col-md-6 form-group conditional-field" id="numDaysField"> <label for="numDays"
+                            data-translate-key="numDaysLabel">عدد الأيام (للخطة الشهرية):</label> <input type="number"
+                            class="form-control" id="numDays" name="numDays" value="30" min="1"> </div>
+                </div>
+                <div class="form-row conditional-field" id="adTypeRow">
+                    <div class="col-md-6 form-group"> <label for="adType" data-translate-key="adTypeLabel">نوع/هيكل
+                            الإعلان
+                            (للإعلانات/الحملة):</label> <select class="form-control" id="adType" name="adType">
+                            <option value="عام" selected data-translate-key="adTypeGeneral">عام</option>
+                            <option value="AIDA">AIDA</option>
+                            <option value="PAS">PAS</option>
+                            <option value="FAB">FAB</option>
+                            <option value="Reason Why">Reason Why</option>
+                            <option value="Classic idea">Classic idea</option>
+                            <option value="Hook – Feature CTA">Hook – Feature CTA</option>
+                        </select> </div>
+                    <div class="col-md-6 form-group"> <label for="adStructureDesc"
+                            data-translate-key="adStructureDescLabel">وصف
+                            إضافي لهيكل الإعلان:</label> <input type="text" class="form-control" id="adStructureDesc"
+                            name="adStructureDesc"> </div>
+                </div>
+                <div class="form-row">
+                    <div class="col-md-6 form-group"> <label for="platforms" data-translate-key="platformsLabel">المنصات
+                            المستهدفة (افصل بفاصلة ,):</label> <input type="text" class="form-control" id="platforms"
+                            name="platforms" placeholder="مثال: انستقرام, تيك توك, سناب شات"
+                            data-translate-placeholder-key="platformsPlaceholder"> </div>
+                    <div class="col-md-6 form-group"> <label for="mediaType" data-translate-key="mediaTypeLabel">نوع
+                            الميديا
+                            المقترح:</label> <input type="text" class="form-control" id="mediaType" name="mediaType"
+                            placeholder="مثال: صورة, فيديو قصير, نص فقط"
+                            data-translate-placeholder-key="mediaTypePlaceholder">
+                    </div>
+                </div>
+                <div class="form-group"> <label for="usageContext" data-translate-key="usageContextLabel">سياق الاستخدام
+                        أو
+                        ملاحظات إضافية:</label> <textarea class="form-control" id="usageContext" name="usageContext"
+                        rows="2"></textarea> </div>
+
+            </div>
+            <div class="text-center"> <button type="submit" class="btn btn-primary mt-4" id="submitButton"
+                    data-translate-key="submitButton">🚀 توليد الآن</button> </div>
+        </form>
+        <div id="status" class="mt-3"></div>
+
+    </div>
+    <script>
+        // --- كود JavaScript (مع تعديلات الترجمة لوصف الإعلانات + ترجمات الأنواع الجديدة) ---
+        (function () { // IIFE
+            const translations = {
+                ar: {
+                    mainTitle: "✨ مولد المحتوى الذكي لوكالة سحاب ✨", section1Title: "1. معلومات المشروع", projectNameLabel: "اسم المشروع:", businessTypeLabel: "نوع النشاط:", targetMarketLabel: "السوق المستهدف:", competitorsLabel: "المنافسون:", projectDescriptionLabel: "وصف المشروع/المنتج/الخدمة:", websiteLinkLabel: "رابط الموقع (إن وجد):", section2Title: "2. الجمهور المستهدف", audienceDemographicsLabel: "الجمهور (الديموغرافيا/الاهتمامات/الاحتياجات):", audienceStrengthLabel: "نقاط القوة/الميزة التنافسية للتركيز عليها:", section3Title: "3. النبرة والأسلوب", outputLanguageLabel: "لغة المخرجات:", langArabic: "عربي", langEnglish: "English", dialectLabel: "اللهجة (إذا كانت عربية):", dialectFusha: "الفصحى", dialectSaudiWhite: "السعودية - بيضاء", dialectSaudiNajdi: "السعودية - نجدية", dialectSaudiHejazi: "السعودية - حجازية", dialectGulf: "خليجية (عامة)", dialectEgyptian: "مصرية", dialectLevantine: "شامية", toneVoiceLabel: "نبرة الكلام:", selectOption: "-- اختر --", toneConfident: "واثق", toneNeutral: "محايد", toneFriendly: "ودي", toneInformal: "غير رسمي", toneEnthusiastic: "حماسي", toneEmpathetic: "متعاطف", toneHumorous: "فكاهي", toneStyleLabel: "أسلوب الكتابة:", styleClear: "واضح ومباشر", styleCreative: "إبداعي ومبتكر", styleStorytelling: "قصصي (Storytelling)", styleEducational: "تعليمي وتثقيفي", stylePersuasive: "مقنع (Persuasive)", toneFormalityLabel: "مستوى الرسمية:", formalityCasual: "عفوي وغير رسمي", formalityBalanced: "متوازن", formalityFormal: "رسمي", tonePersonalityLabel: "شخصية العلامة التجارية:", personalityApproachable: "قريب من الناس ومتعاون", personalityProfessional: "احترافية وموثوقة", personalityYouthful: "شبابية وعصرية", personalityLuxury: "فاخرة وحصرية", personalityInspirational: "ملهمة ومحفزة", personalityPlayful: "مرحة ومبتكرة", section4Title: "4. طلب التوليد", generationTypeLabel: "نوع التوليد المطلوب:",
+                    // خيارات التوليد الأصلية
+                    genTypeMonthlyPlan: "خطة محتوى شهري", genTypeAds: "توليد إعلانات", genTypeIdeas: "توليد أفكار", genTypeCampaign: "حملة اعلانية", genTypeSwot: "تحليل SWOT", genTypePersona: "وصف شخصية العميل المثالي", genTypeGoals: "اقتراح أهداف تسويقية (SMART)", genTypeCompetitor: "تحليل المنافسين", genTypeAdvantage: "تحديد الميزة التنافسية", genTypePlatformStrategy: "استراتيجية منصات التواصل", genTypePillars: "محاور المحتوى الرئيسية", genTypeTactics: "مقترحات تكتيكية",
+                    // --- START: تمت إضافة ترجمات أنواع التوليد الجديدة هنا ---
+                    genTypeProdDesc: "وصف منتجات",
+                    genTypeFAQ: "أسئلة شائعة (FAQ)",
+                    genTypeBlogIdeas: "أفكار مدونة",
+                    genTypeEmailCopy: "نصوص بريد إلكتروني",
+                    genTypeLandingPage: "محتوى صفحات هبوط",
+                    genTypeStoreBanners: "نصوص وأفكار بنرات متاجر",
+                    genTypeAboutPoints: "نقاط رئيسية للصفحة التعريفية",
+                    // --- END: تمت إضافة ترجمات أنواع التوليد الجديدة هنا ---
+                    contentGoalLabel: "الهدف من هذا المحتوى/الطلب:", contentGoalPlaceholder: "مثال: زيادة الوعي, جذب عملاء جدد, زيادة التفاعل", numContentLabel: "العدد المطلوب (أفكار/إعلانات/نقاط..):", numDaysLabel: "عدد الأيام (للخطة الشهرية):", adTypeLabel: "نوع/هيكل الإعلان (للإعلانات/الحملة):", adTypeGeneral: "عام", adStructureDescLabel: "وصف إضافي لهيكل الإعلان:", platformsLabel: "المنصات المستهدفة (افصل بفاصلة ,):", platformsPlaceholder: "مثال: انستقرام, تيك توك, سناب شات", mediaTypeLabel: "نوع الميديا المقترح:", mediaTypePlaceholder: "مثال: صورة, فيديو قصير, نص فقط", usageContextLabel: "سياق الاستخدام أو ملاحظات إضافية:", submitButton: "🚀 توليد الآن", toggleThemeLight: "☀ وضع نهاري", toggleThemeDark: "🌙 وضع ليلي", toggleLangEn: "🇬🇧 English", toggleLangAr: "🇸🇦 عربي", loadingMessage: "⏳ جارٍ الإرسال والتوليد...", successMessage: "✅ تم إنشاء ورقة '{sheetName}' بنجاح.", errorMessage: "❌ خطأ: {error}", connectionErrorMessage: "❌ فشل الاتصال: {error}", formErrorMessage: "❌ خطأ في تجهيز البيانات: {error}", requiredFieldsError: "الرجاء ملء جميع الحقول المطلوبة المميزة بالأحمر.",
+                    // ترجمات وصف أنواع الإعلانات (تم إصلاحها سابقاً)
+                    descAIDA: "لفت الانتباه، إثارة الاهتمام، خلق الرغبة، الدعوة للإجراء.", descPAS: "تحديد المشكلة، تأزيمها أو تحريكها، تقديم الحل.", descFAB: "ذكر الميزات، شرح المزايا، توضيح الفوائد للعميل.", descReasonWhy: "تقديم أسباب منطقية ومقنعة للشراء.", descClassicIdea: "الاعتماد على فكرة إبداعية أو قصة كمحور للإعلان.", descHookFeatureCTA: "خطاف جذب الانتباه، ذكر ميزة رئيسية، دعوة مباشرة للإجراء.", descGeneral: ""
+                },
+                en: {
+                    mainTitle: "✨ Sahab Agency - Smart Content Generator ✨", section1Title: "1. Project Information", projectNameLabel: "Project Name:", businessTypeLabel: "Business Type:", targetMarketLabel: "Target Market:", competitorsLabel: "Competitors:", projectDescriptionLabel: "Project/Product/Service Description:", websiteLinkLabel: "Website Link (if any):", section2Title: "2. Target Audience", audienceDemographicsLabel: "Audience (Demographics/Interests/Needs):", audienceStrengthLabel: "Strengths/Competitive Advantage to Focus On:", section3Title: "3. Tone and Style", outputLanguageLabel: "Output Language:", langArabic: "عربي", langEnglish: "English", dialectLabel: "Dialect (if Arabic):", dialectFusha: "Formal (Fusha)", dialectSaudiWhite: "Saudi - White", dialectSaudiNajdi: "Saudi - Najdi", dialectSaudiHejazi: "Saudi - Hejazi", dialectGulf: "Gulf (General)", dialectEgyptian: "Egyptian", dialectLevantine: "Levantine", toneVoiceLabel: "Tone of Voice:", selectOption: "-- Select --", toneConfident: "Confident", toneNeutral: "Neutral", toneFriendly: "Friendly", toneInformal: "Informal", toneEnthusiastic: "Enthusiastic", toneEmpathetic: "Empathetic", toneHumorous: "Humorous", toneStyleLabel: "Writing Style:", styleClear: "Clear & Direct", styleCreative: "Creative & Innovative", styleStorytelling: "Storytelling", styleEducational: "Educational & Informative", stylePersuasive: "Persuasive", toneFormalityLabel: "Formality Level:", formalityCasual: "Casual & Informal", formalityBalanced: "Balanced", formalityFormal: "Formal", tonePersonalityLabel: "Brand Personality:", personalityApproachable: "Approachable & Collaborative", personalityProfessional: "Professional & Reliable", personalityYouthful: "Youthful & Modern", personalityLuxury: "Luxury & Exclusive", personalityInspirational: "Inspirational & Motivating", personalityPlayful: "Playful & Innovative", section4Title: "4. Generation Request", generationTypeLabel: "Generation Type Required:",
+                    // Original Generation Types
+                    genTypeMonthlyPlan: "Monthly Content Plan", genTypeAds: "Generate Ads", genTypeIdeas: "Generate Ideas", genTypeCampaign: "Ad Campaign", genTypeSwot: "SWOT Analysis", genTypePersona: "Ideal Customer Persona", genTypeGoals: "Suggest SMART Marketing Goals", genTypeCompetitor: "Competitor Analysis", genTypeAdvantage: "Identify Competitive Advantage", genTypePlatformStrategy: "Social Media Strategy", genTypePillars: "Content Pillars", genTypeTactics: "Tactical Suggestions",
+                    // --- START: New Generation Type Translations Added Here ---
+                    genTypeProdDesc: "Product Descriptions",
+                    genTypeFAQ: "FAQ Content",
+                    genTypeBlogIdeas: "Blog Post Ideas",
+                    genTypeEmailCopy: "Email Copy",
+                    genTypeLandingPage: "Landing Page Content",
+                    genTypeStoreBanners: "Store Banner Texts & Ideas",
+                    genTypeAboutPoints: "Key Points for About Page",
+                    // --- END: New Generation Type Translations Added Here ---
+                    contentGoalLabel: "Objective of this content/request:", contentGoalPlaceholder: "e.g., Increase awareness, Attract new clients, Boost engagement", numContentLabel: "Number Required (ideas/ads/points..):", numDaysLabel: "Number of Days (for Monthly Plan):", adTypeLabel: "Ad Type/Structure (for Ads/Campaign):", adTypeGeneral: "General", adStructureDescLabel: "Additional Ad Structure Description:", platformsLabel: "Target Platforms (comma-separated):", platformsPlaceholder: "e.g., Instagram, TikTok, Snapchat", mediaTypeLabel: "Suggested Media Type:", mediaTypePlaceholder: "e.g., Image, Short video, Text only", usageContextLabel: "Usage Context or Additional Notes:", submitButton: "🚀 Generate Now", toggleThemeLight: "☀ Light Mode", toggleThemeDark: "🌙 Dark Mode", toggleLangEn: "🇬🇧 English", toggleLangAr: "🇸🇦 عربي", loadingMessage: "⏳ Sending data and generating...", successMessage: "✅ Sheet '{sheetName}' created successfully!", errorMessage: "❌ Error: {error}", connectionErrorMessage: "❌ Connection Failed: {error}", formErrorMessage: "❌ Error Preparing Data: {error}", requiredFieldsError: "Please fill in all required fields marked in red.",
+                    // Ad type description translations (previously fixed)
+                    descAIDA: "Attention, Interest, Desire, Action.", descPAS: "Problem, Agitate, Solution.", descFAB: "Features, Advantages, Benefits.", descReasonWhy: "Provide logical reasons to buy.", descClassicIdea: "Based on a creative idea or story as the ad's core.", descHookFeatureCTA: "Hook attention, mention a key feature, direct Call To Action.", descGeneral: ""
+                }
+            };
+            // ... (باقي كود الجافاسكربت كما هو بدون تغيير في الدوال الأخرى) ...
+            const themeToggleButton = document.getElementById('theme-toggle-button'); const bodyElement = document.body; const langToggleButton = document.getElementById('lang-toggle-button'); let currentLang = 'ar';
+            const currentHour = new Date().getHours(); const timeBasedTheme = (currentHour >= 6 && currentHour < 18) ? 'light' : 'dark'; let currentTheme = timeBasedTheme;
+            function applyTheme(theme) { bodyElement.setAttribute('data-theme', theme); if (themeToggleButton) { themeToggleButton.textContent = theme === 'dark' ? '☀' : '🌙'; } }
+            function switchTheme() { const newTheme = bodyElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark'; applyTheme(newTheme); console.log(Theme manually switched to ${ newTheme }(Temporary)); } if (themeToggleButton) { themeToggleButton.addEventListener('click', switchTheme); }
+            function detectLanguage() { const browserLang = navigator.language || navigator.userLanguage; if (browserLang && browserLang.toLowerCase().startsWith('en')) { return 'en'; } return 'ar'; }
+
+            function setLanguage(lang) {
+                if (!translations[lang]) { console.error("Lang not supported:", lang); return; }
+                currentLang = lang; const langDict = translations[lang];
+                console.log(--- Setting Language to: ${ lang } -- -);
+                document.querySelectorAll('[data-translate-key]').forEach(element => {
+                    const key = element.getAttribute('data-translate-key');
+                    // console.log(Processing -> Tag:${element.tagName}, Key:${key}); // تم التعليق لتقليل اللوغات
+                    if (langDict[key] !== undefined) {
+                        const newText = langDict[key];
+                        // console.log(`   Found: "${newText}"`);
+                        try {
+                            if (element.tagName === 'OPTION') { element.textContent = newText; }
+                            else if (element.tagName === 'BUTTON' && element.id === 'submitButton') { element.textContent = newText; }
+                            else if (element.tagName !== 'INPUT' && element.tagName !== 'TEXTAREA') { element.textContent = newText; }
+                            // if (element.tagName !== 'INPUT' && element.tagName !== 'TEXTAREA') { console.log(`   Applied: "${element.textContent}"`); }
+                        } catch (e) { console.error(`   ERROR applying text for key ${key}: ${e}`); }
+                    } else { console.warn(`   Key NOT FOUND for ${lang}: ${key}`); }
+                });
+                document.querySelectorAll('[data-translate-placeholder-key]').forEach(element => {
+                    const key = element.getAttribute('data-translate-placeholder-key');
+                    if (langDict[key] !== undefined) { element.placeholder = langDict[key]; }
+                    else { console.warn(`   Placeholder key NOT FOUND for ${lang}: ${key}`); }
+                });
+                bodyElement.dir = (lang === 'ar') ? 'rtl' : 'ltr'; document.documentElement.lang = lang;
+                if (langToggleButton) { langToggleButton.textContent = (lang === 'ar') ? '🇬🇧' : '🇸🇦'; }
+                updateAdDescription();
+                localStorage.setItem('preferredLang', lang);
+                console.log(Language set to: ${ lang }.Body dir: ${ bodyElement.dir });
+                console.log(--- Finished Setting Language: ${ lang } -- -);
+            }
+
+            function switchLanguage() { const newLang = (currentLang === 'ar') ? 'en' : 'ar'; setLanguage(newLang); } if (langToggleButton) { langToggleButton.addEventListener('click', switchLanguage); }
+            function handleConditionalFields() { const genTypeSelect = document.getElementById('generationType'); if (!genTypeSelect) return; const generationType = genTypeSelect.value; const numDaysField = document.getElementById('numDaysField'); const adTypeRow = document.getElementById('adTypeRow'); if (numDaysField) numDaysField.style.display = (generationType?.includes('خطة محتوى شهري') || generationType?.includes('Monthly Content Plan')) ? 'block' : 'none'; if (adTypeRow) adTypeRow.style.display = (generationType?.includes('إعلانات') || generationType?.includes('حملة اعلانيه') || generationType?.toLowerCase().includes('ads') || generationType?.toLowerCase().includes('campaign')) ? 'flex' : 'none'; }
+            const genTypeSelect = document.getElementById('generationType'); if (genTypeSelect) { genTypeSelect.addEventListener('change', handleConditionalFields); }
+
+            const adTypeSelect = document.getElementById('adType');
+            const adStructureDescInput = document.getElementById('adStructureDesc');
+            const adTypeDescriptionKeys = { "AIDA": "descAIDA", "PAS": "descPAS", "FAB": "descFAB", "Reason Why": "descReasonWhy", "Classic idea": "descClassicIdea", "Hook – Feature CTA": "descHookFeatureCTA", "عام": "descGeneral" };
+
+            function updateAdDescription() {
+                if (!adTypeSelect || !adStructureDescInput || !translations[currentLang]) return;
+                const selectedType = adTypeSelect.value;
+                const descriptionKey = adTypeDescriptionKeys[selectedType];
+                if (descriptionKey && translations[currentLang][descriptionKey] !== undefined) {
+                    adStructureDescInput.value = translations[currentLang][descriptionKey];
+                } else {
+                    adStructureDescInput.value = '';
+                }
+            }
+            if (adTypeSelect) { adTypeSelect.addEventListener('change', updateAdDescription); }
+
+            document.addEventListener('DOMContentLoaded', function () { const initialLang = detectLanguage(); setLanguage(initialLang); applyTheme(currentTheme); handleConditionalFields(); updateAdDescription(); console.log(Initial lang: ${ initialLang }, Initial theme: ${ currentTheme }); });
+            document.getElementById("inputForm").addEventListener("submit", function (event) { event.preventDefault(); const statusDiv = document.getElementById("status"); const submitButton = document.getElementById("submitButton"); statusDiv.textContent = translations[currentLang].loadingMessage; statusDiv.className = "loading"; statusDiv.style.display = 'block'; submitButton.disabled = true; console.log("Submit clicked..."); try { const formElements = event.target.elements; const formData = {}; let missingRequired = false; Array.from(formElements).forEach(el => { if (el.required) el.style.borderColor = ""; }); for (let i = 0; i < formElements.length; i++) { const element = formElements[i]; const isVisible = !!(element.offsetWidth || element.offsetHeight || element.getClientRects().length); if (element.name && !element.disabled && element.type !== 'submit' && element.type !== 'button') { formData[element.name] = element.value; if (element.required && isVisible && !element.value) { console.warn(Required visible field '${element.name}' empty.); missingRequired = true; element.style.borderColor = "red"; } } } if (missingRequired) { throw new Error(translations[currentLang].requiredFieldsError); } console.log("Form Data Sending:", formData); google.script.run.withSuccessHandler(function (response) { submitButton.disabled = false; console.log("Server Response:", response); if (response && response.success) { const successMsg = translations[currentLang].successMessage.replace('{sheetName}', response.message.match(/'(.*?)'/)?.[1] || 'Results'); statusDiv.textContent = successMsg; statusDiv.className = "success"; setTimeout(function () { try { google.script.host.close(); } catch (e) { } }, 4000); } else { const errorMsg = translations[currentLang].errorMessage.replace('{error}', response ? response.message : "Unknown error"); statusDiv.textContent = errorMsg; statusDiv.className = "error"; } }).withFailureHandler(function (error) { submitButton.disabled = false; const connErrorMsg = translations[currentLang].connectionErrorMessage.replace('{error}', error.message); statusDiv.textContent = connErrorMsg; statusDiv.className = "error"; console.error("Failure Handler:", error); }).processInputDataFromDialog(formData); } catch (err) { submitButton.disabled = false; const formErrorMsg = translations[currentLang].formErrorMessage.replace('{error}', err.message); statusDiv.textContent = formErrorMsg; statusDiv.className = "error"; console.error("Form Error:", err); } });
+        })(); // End of IIFE
+    </script>
+</body>
+
+</html>
