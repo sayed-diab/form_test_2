@@ -3,12 +3,14 @@
 
 <head>
     <base target="_top">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.5.0/dist/semantic.min.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+
 
     <style>
         /* --- CSS Variables and Styles --- */
@@ -68,7 +70,7 @@
         }
 
         body {
-            font-family: 'Tajawal', 'Inter', sans-serif;
+            font-family: 'Tajawal', 'Inter', sans-serif !important;
             padding: 20px;
             background-color: var(--bg-color);
             background-image: url('https://res.cloudinary.com/dmijzhuyq/image/upload/v1745357858/WhatsApp_Image_2025-04-22_at_22.35.58_c9b26efe_d1mjid.webp');
@@ -82,6 +84,7 @@
             transition: background-color 0.3s, color 0.3s;
             box-sizing: border-box;
         }
+
 
         body[dir="rtl"] {
             text-align: right;
@@ -139,14 +142,18 @@
             margin: 0px !important;
             transition: color 0.3s, border-color 0.3s;
             text-align: center;
+            font-family: 'Tajawal', 'Inter', sans-serif !important;
+
         }
 
         h4 {
+            font-family: 'Tajawal', 'Inter', sans-serif !important;
+
             margin-top: 25px;
             margin-bottom: 20px;
             /* border-bottom: 1px solid var(--border-color); */
             padding-bottom: 8px;
-            color: var(--primary-color);
+            color: var(--text-color);
             font-weight: 700;
             transition: color 0.3s, border-color 0.3s;
         }
@@ -168,17 +175,62 @@
             transition: color 0.3s;
         }
 
+        body[dir="ltr"] .ui.dropdown .menu>.item {
+            text-align: left;
+        }
+
+        .ui.dropdown .menu {
+            border-color: var(--text-color) !important;
+        }
+
+        .ui.dropdown .menu>.item {
+            text-align: right;
+        }
+
+        body[dir="ltr"] .ui.selection.dropdown {
+            text-align: left;
+
+            .dropdown.icon {
+                right: 1rem !important;
+                left: auto !important;
+            }
+        }
+
+        .ui.selection.dropdown {
+            text-align: right;
+            padding-right: 1rem !important;
+
+            .dropdown.icon {
+                left: 1rem !important;
+                right: auto !important;
+            }
+        }
+
+        body[dir="ltr"] .ui.dropdown>.dropdown.icon:before {
+            content: '\1F856';
+        }
+
+        .ui.dropdown>.dropdown.icon {
+            top: 0.485714em !important;
+            font-size: 18px;
+        }
+
+        .ui.dropdown>.dropdown.icon:before {
+            content: '\1F857';
+        }
+
         input[type="text"],
         input[type="number"],
         input[type="url"],
         select.form-control,
-        textarea.form-control {
+        textarea.form-control,
+        .ui.selection.dropdown {
             font-size: 15px;
             background-color: transparent;
             transition: all 0.3s;
             border-color: transparent;
-            border-bottom: 1.2px solid var(--border-color-input);
-            border-radius: 5px 5px 0 0 !important;
+            border: 1.2px solid var(--border-color-input);
+            border-radius: 5px;
             box-shadow: inset 18px 22px 84px -15px rgba(0, 0, 0, 0.100);
 
         }
@@ -187,13 +239,14 @@
         input[type="number"]:focus,
         input[type="url"]:focus,
         select.form-control:focus,
-        textarea.form-control:focus {
-            border-color: var(--input-focus-border);
+        textarea.form-control:focus,
+        .ui.selection.dropdown:focus {
+            border-color: var(--text-color) !important;
             background-color: var(--bg-color);
             box-shadow: none;
             outline: none;
-            border-color: transparent transparent var(--border-color-input) transparent;
             caret-color: var(--primary-color);
+            border: 1.2px solid var(--border-color-input);
             box-shadow: inset 18px 22px 84px -15px rgba(0, 0, 0, 0.10);
         }
 
@@ -201,12 +254,13 @@
         input[type="number"]:hover,
         input[type="url"]:hover,
         select.form-control:hover,
-        textarea.form-control:hover {
-            border-color: var(--input-focus-border);
+        textarea.form-control:hover,
+        .ui.selection.dropdown:hover {
+            border-color: var(--text-color) !important;
             background-color: var(--bg-color);
             box-shadow: none;
             outline: none;
-            border-color: transparent transparent var(--border-color-input) transparent;
+            border: 1.2px solid var(--border-color-input);
             box-shadow: inset 18px 22px 84px -15px rgba(0, 0, 0, 0.10);
         }
 
@@ -317,12 +371,26 @@
             display: none;
         }
 
-        .toggle-buttons {
-            position: absolute;
-            top: 10px;
-            z-index: 10;
+        .mini-opt-bar {
             display: flex;
-            gap: 5px;
+            height: 50px;
+            padding: 0 10px;
+            align-items: center;
+            background-color: var(--input-bg-color);
+            border-radius: 8px;
+            border-radius: 20px;
+            border: 1px solid var(--border-color-card);
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 16px;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .toggle-buttons {
+            display: flex;
+            gap: 10px;
         }
 
         body[dir="rtl"] .toggle-buttons {
@@ -333,27 +401,37 @@
             right: 10px;
         }
 
+        /* .toggle-button {
+            border: 1px solid;
+            border-color: var(--border-color-input) !important;
+        } */
+
         .toggle-button {
+            border-radius: 8px;
+            border: 1px solid;
+            border-color: var(--border-color-input) !important;
             font-size: 0.8rem;
-            padding: 4px 8px;
-            background-color: var(--input-bg-color);
-            color: var(--muted-text-color);
-            border: 1px solid var(--border-color);
-            border-radius: 6px;
+            height: 30px;
+            width: 30px;
+            display: inline-block;
+            background-color: var(--bg-color) !important;
             cursor: pointer;
             transition: background-color 0.3s, color 0.3s;
         }
 
         .toggle-button:hover {
-            background-color: var(--border-color);
-            color: var(--text-color);
+            background-color: white !important;
+
+        }
+
+        body[dir="ltr"] #logo-container-wrapper {
+            flex-direction: row-reverse;
         }
 
         #logo-container-wrapper {
-            text-align: center !important;
-            transition: border-color 0.3s;
-            height: 500px;
-            position: relative;
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 30px 30px;
         }
 
         body[dir="ltr"] #logo-container {
@@ -369,13 +447,21 @@
             justify-content: end;
             transition: background-color 0.3s;
             line-height: 0;
-            position: sticky;
-            top: 0;
+
         }
 
-        [data-theme="dark"] #logo-container {
-            /* background-color: #ffffff; */
+        [data-theme="dark"] .logo-light {
+            display: none;
         }
+
+        [data-theme="dark"] .logo-dark {
+            display: block;
+        }
+
+        .logo-dark {
+            display: none;
+        }
+
 
         #logo-image {
             vertical-align: middle;
@@ -383,13 +469,15 @@
         }
 
         .overall-wraper {
-            max-width: 80%;
+            max-width: 90%;
             margin: 0 auto;
             border: 10px solid var(--border-color);
             border-radius: 50px;
             padding: 10px 30px;
             margin-top: 40px;
         }
+
+
 
         body[dir="ltr"] .form-card {
             direction: ltr;
@@ -423,7 +511,6 @@
             }
 
         }
-
 
         @media (max-width: 768px) {
             .overall-wraper {
@@ -485,15 +572,22 @@
 
 <body>
 
-    <div class="toggle-buttons"> <button type="button" id="theme-toggle-button" class="toggle-button">☀</button> <button
-            type="button" id="lang-toggle-button" class="toggle-button">🇬🇧</button> </div>
-    <div class="overall-wraper">
 
+    <div class="overall-wraper">
         <div id="logo-container-wrapper">
-            <div id="logo-container">
+            <div class="mini-opt-bar">
                 <img id="logo-image"
-                    src="https://res.cloudinary.com/dmijzhuyq/image/upload/v1745359305/750607235_fjwd99.png"
+                    src="https://res.cloudinary.com/dmijzhuyq/image/upload/v1745408556/logo-dark_vn2opu.png"
                     alt="شعار وكالة سحاب" style="max-width: 200px; max-height: 80px;">
+                <!-- <img id="logo-image"
+                    class="logo-light"
+                    src="https://res.cloudinary.com/dmijzhuyq/image/upload/v1745408253/logo-white_cevpqz.png"
+                    alt="شعار وكالة سحاب" style="max-width: 200px; max-height: 80px;"> -->
+                <div class="toggle-buttons"> <button type="button" id="theme-toggle-button"
+                        class="toggle-button">☀</button> <button type="button" id="lang-toggle-button"
+                        class="toggle-button">🇬🇧</button> </div>
+            </div>
+            <div id="logo-container">
                 <h3 class="main-title" id="main-title" data-translate-key="mainTitle"> مولد المحتوى الذكي لوكالة سحاب
                 </h3>
             </div>
@@ -549,13 +643,13 @@
                 <h4 id="section3TitleEl" data-translate-key="section3Title">3. النبرة والأسلوب</h4>
                 <div class="form-row">
                     <div class="col-md-6 form-group"> <label for="language" data-translate-key="outputLanguageLabel">لغة
-                            المخرجات:</label> <select class="form-control" id="language" name="language">
+                            المخرجات:</label> <select class="form-control ui dropdown" id="language" name="language">
                             <option value="عربي" selected data-translate-key="langArabic">عربي</option>
                             <option value="English" data-translate-key="langEnglish">English</option>
                         </select> </div>
                     <div class="col-md-6 form-group"> <label for="dialect" data-translate-key="dialectLabel">اللهجة (إذا
                             كانت
-                            عربية):</label> <select class="form-control" id="dialect" name="dialect">
+                            عربية):</label> <select class="form-control ui dropdown" id="dialect" name="dialect">
                             <option value="الفصحى" data-translate-key="dialectFusha">الفصحى</option>
                             <option value="السعودية - بيضاء" selected data-translate-key="dialectSaudiWhite">السعودية -
                                 بيضاء
@@ -571,7 +665,7 @@
                 </div>
                 <div class="form-row">
                     <div class="col-md-6 form-group"> <label for="toneVoice" data-translate-key="toneVoiceLabel">نبرة
-                            الكلام:</label> <select class="form-control" id="toneVoice" name="toneVoice">
+                            الكلام:</label> <select class="form-control ui dropdown" id="toneVoice" name="toneVoice">
                             <option value="" data-translate-key="selectOption">-- اختر --</option>
                             <option value="واثق" data-translate-key="toneConfident">واثق</option>
                             <option value="محايد" selected data-translate-key="toneNeutral">محايد</option>
@@ -582,7 +676,7 @@
                             <option value="فكاهي" data-translate-key="toneHumorous">فكاهي</option>
                         </select> </div>
                     <div class="col-md-6 form-group"> <label for="toneStyle" data-translate-key="toneStyleLabel">أسلوب
-                            الكتابة:</label> <select class="form-control" id="toneStyle" name="toneStyle">
+                            الكتابة:</label> <select class="form-control ui dropdown" id="toneStyle" name="toneStyle">
                             <option value="" data-translate-key="selectOption">-- اختر --</option>
                             <option value="واضح ومباشر" selected data-translate-key="styleClear">واضح ومباشر</option>
                             <option value="إبداعي ومبتكر" data-translate-key="styleCreative">إبداعي ومبتكر</option>
@@ -597,7 +691,8 @@
                 <div class="form-row">
                     <div class="col-md-6 form-group"> <label for="toneFormality"
                             data-translate-key="toneFormalityLabel">مستوى
-                            الرسمية:</label> <select class="form-control" id="toneFormality" name="toneFormality">
+                            الرسمية:</label> <select class="form-control ui dropdown" id="toneFormality"
+                            name="toneFormality">
                             <option value="" data-translate-key="selectOption">-- اختر --</option>
                             <option value="عفوي وغير رسمي" data-translate-key="formalityCasual">عفوي وغير رسمي</option>
                             <option value="متوازن" selected data-translate-key="formalityBalanced">متوازن</option>
@@ -605,7 +700,7 @@
                         </select> </div>
                     <div class="col-md-6 form-group"> <label for="tonePersonality"
                             data-translate-key="tonePersonalityLabel">شخصية العلامة التجارية:</label> <select
-                            class="form-control" id="tonePersonality" name="tonePersonality">
+                            class="form-control ui dropdown" id="tonePersonality" name="tonePersonality">
                             <option value="" data-translate-key="selectOption">-- اختر --</option>
                             <option value="قريب من الناس ومتعاون" data-translate-key="personalityApproachable">قريب من
                                 الناس
@@ -630,7 +725,7 @@
                     <div class="col-md-6 form-group">
                         <label for="generationType" data-translate-key="generationTypeLabel">نوع التوليد
                             المطلوب:</label>
-                        <select class="form-control" id="generationType" name="generationType">
+                        <select class="form-control ui dropdown" id="generationType" name="generationType">
                             <option value="خطة محتوى شهري" selected data-translate-key="genTypeMonthlyPlan">خطة محتوى
                                 شهري
                             </option>
@@ -691,7 +786,8 @@
                 <div class="form-row conditional-field" id="adTypeRow">
                     <div class="col-md-6 form-group"> <label for="adType" data-translate-key="adTypeLabel">نوع/هيكل
                             الإعلان
-                            (للإعلانات/الحملة):</label> <select class="form-control" id="adType" name="adType">
+                            (للإعلانات/الحملة):</label> <select class="form-control ui dropdown" id="adType"
+                            name="adType">
                             <option value="عام" selected data-translate-key="adTypeGeneral">عام</option>
                             <option value="AIDA">AIDA</option>
                             <option value="PAS">PAS</option>
@@ -729,6 +825,15 @@
         <div id="status" class="mt-3"></div>
 
     </div>
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.5.0/dist/semantic.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('.ui.dropdown').dropdown({
+                fullTextSearch: true
+            });
+        });
+    </script>
     <script>
         // --- كود JavaScript (مع تعديلات الترجمة لوصف الإعلانات + ترجمات الأنواع الجديدة) ---
         (function () { // IIFE
