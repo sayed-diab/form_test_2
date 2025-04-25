@@ -19,6 +19,7 @@
             --bg-color: #e0e0e0;
             --form-bg-color: #ffffff;
             --text-color: #333333;
+            --input-text-color: #333333;
             --muted-text-color: #6c757d;
             --primary-color: #282d69;
             --accent-color: #4D5BFF;
@@ -47,9 +48,10 @@
             --bg-color: #16153D;
             --form-bg-color: #16153D;
             --text-color: #FFFFFF;
-            --muted-text-color: #B0B0D0;
+            --muted-text-color: #efeff6;
             --primary-color: #4D5BFF;
             --accent-color: #6977ff;
+            --input-text-color: #f2f2f2;
             --border-color: #2a2a5e;
             --border-color-card: White;
             --input-bg-color: #201f4a;
@@ -98,6 +100,14 @@
             text-align: left;
         }
 
+        [data-theme="dark"].form-card {
+            background-color: rgb(255 255 255 / 30%);
+        }
+
+        [data-theme="dark"] .form-group label {
+            color: #FFFFFF;
+        }
+
         body[dir="ltr"] h4 {
             text-align: left;
         }
@@ -129,11 +139,11 @@
             flex-wrap: wrap;
             justify-content: center;
             gap: 30px;
-            flex-direction: row-reverse;
         }
 
         [data-theme="light"] form {
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+
         }
 
         h3 {
@@ -193,7 +203,16 @@
 
         }
 
-        .form-group label {
+        body[dir="ltr"][data-theme="dark"] .select-icon::after {
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='white' viewBox='0 0 16 16'%3E%3Cpath fill-rule='evenodd' d='M2 13.5a.5.5 0 0 0 .5.5h6a.5.5 0 0 0 0-1H3.707L13.854 2.854a.5.5 0 0 0-.708-.708L3 12.293V7.5a.5.5 0 0 0-1 0z'/%3E%3C/svg%3E");
+
+        }
+
+        [data-theme="dark"] .select-icon::after {
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='white' viewBox='0 0 16 16'%3E%3Cpath fill-rule='evenodd' d='M2 13.5a.5.5 0 0 0 .5.5h6a.5.5 0 0 0 0-1H3.707L13.854 2.854a.5.5 0 0 0-.708-.708L3 12.293V7.5a.5.5 0 0 0-1 0z'/%3E%3C/svg%3E");
+        }
+
+        body[dir="ltr"] .select-icon::after .form-group label {
             font-weight: 500;
             color: var(--muted-text-color);
             margin-bottom: 8px;
@@ -243,10 +262,6 @@
             display: none;
         }
 
-        .ui.dropdown>.dropdown.icon {
-            /* top: 0.485714em !important; */
-            /* font-size: 18px; */
-        }
 
         .ui.dropdown>.dropdown.icon::before {
             display: none;
@@ -266,7 +281,7 @@
             border: 1.2px solid var(--border-color-input);
             border-radius: 5px;
             box-shadow: inset 18px 22px 84px -15px rgba(0, 0, 0, 0.100);
-
+            color: var(--input-text-color);
         }
 
         input[type="text"]:focus,
@@ -277,6 +292,7 @@
         .ui.selection.dropdown:focus {
             border-color: var(--text-color) !important;
             background-color: var(--bg-color);
+            color: var(--input-text-color);
             box-shadow: none;
             outline: none;
             caret-color: var(--primary-color);
@@ -292,6 +308,7 @@
         .ui.selection.dropdown:hover {
             border-color: var(--text-color) !important;
             background-color: var(--bg-color);
+            color: var(--input-text-color);
             box-shadow: none;
             outline: none;
             border: 1.2px solid var(--border-color-input);
@@ -300,18 +317,22 @@
 
         input::placeholder,
         textarea::placeholder {
-            color: var(--muted-text-color);
-            opacity: 0.7;
+            color: var(--muted-text-color) !important;
+            opacity: 0.8 !important;
         }
 
         input:-ms-input-placeholder,
         textarea:-ms-input-placeholder {
-            color: var(--muted-text-color);
+            color: var(--muted-text-color) !important;
         }
 
         input::-ms-input-placeholder,
         textarea::-ms-input-placeholder {
-            color: var(--muted-text-color);
+            color: var(--muted-text-color) !important;
+        }
+
+        .ui.selection.dropdown>.dropdown.icon {
+            display: none !important;
         }
 
         select.form-control {
@@ -435,27 +456,42 @@
             border: 1px solid;
             border-color: var(--border-color-input) !important;
             font-size: 0.8rem;
-            padding: 5px 10px;
+            height: 28px;
+            width: 32px;
             text-align: center;
             background-color: white !important;
             cursor: pointer;
             transition: background-color 0.3s, color 0.3s;
         }
 
+        .toggle-button:focus {
+            outline: none;
+        }
+
         .toggle-button:hover {
             background-color: var(--bg-color) !important;
+        }
 
+        [data-theme="dark"] .toggle-button {
+            background-color: transparent !important;
+            color: white !important;
+        }
 
+        [data-theme="dark"] .toggle-button:hover {
+            background-color: var(--bg-color) !important;
+            color: white !important;
         }
 
         body[dir="ltr"] #logo-container-wrapper {
-            flex-direction: row-reverse;
+            /* flex-direction: row-reverse; */
         }
 
         #logo-container-wrapper {
             display: flex;
             justify-content: space-between;
             padding: 10px 30px 30px;
+            flex-direction: row-reverse;
+
         }
 
         body[dir="ltr"] #logo-container {
@@ -474,23 +510,8 @@
 
         }
 
-        [data-theme="dark"] .logo-light {
-            display: none;
-        }
-
-        [data-theme="dark"] .logo-dark {
-            display: block;
-        }
-
-        .logo-dark {
-            display: none;
-        }
 
 
-        #logo-image {
-            vertical-align: middle;
-
-        }
 
         .overall-wraper {
             max-width: 90%;
@@ -502,9 +523,15 @@
         }
 
         #logo-image {
-            max-width: 200px;
-            max-height: 80px;
-            margin-left: 10px;
+            max-width: 58px;
+            max-height: 40px;
+            margin-left: 20px;
+            margin-right: 5px;
+        }
+
+        body[dir="ltr"] #logo-image {
+            margin-left: 5px;
+            margin-right: 20px;
         }
 
         body[dir="ltr"] .form-card {
@@ -611,8 +638,15 @@
                 height: 40px !important;
             }
 
+            body[dir="rtl"] .mini-opt-bar {
+                padding: 0px 10px 0 10px !important;
+                height: 40px !important;
+            }
+
             .toggle-button {
-                padding: 5px 8px !important;
+                text-align: center;
+                height: 24px !important;
+                width: 28px !important;
                 font-size: 0.6rem !important;
             }
 
@@ -625,9 +659,27 @@
             }
 
             #logo-image {
-                max-width: 150px !important;
-                max-height: 60px !important;
+                max-width: 40px !important;
+                max-height: 30px !important;
+                margin-left: 10px !important;
             }
+
+            body[dir="rtl"] #logo-image {
+                margin-left: 10px !important;
+                margin-right: 0px !important;
+            }
+        }
+
+        [data-theme="dark"] .logo-light {
+            display: none;
+        }
+
+        [data-theme="dark"] .logo-dark {
+            display: block;
+        }
+
+        .logo-dark {
+            display: none;
         }
     </style>
 </head>
@@ -638,8 +690,11 @@
     <div class="overall-wraper">
         <div id="logo-container-wrapper">
             <div class="mini-opt-bar">
-                <img id="logo-image"
-                    src="https://res.cloudinary.com/dmijzhuyq/image/upload/v1745408556/logo-dark_vn2opu.png"
+                <img id="logo-image" class="logo-light"
+                    src="https://res.cloudinary.com/dmijzhuyq/image/upload/v1745529790/IMG_6724_vmrcpa.png"
+                    alt="شعار وكالة سحاب">
+                <img id="logo-image" class="logo-dark"
+                    src="https://res.cloudinary.com/dmijzhuyq/image/upload/v1745529790/white_logo_slwh2w.png"
                     alt="شعار وكالة سحاب">
                 <div class="toggle-buttons"> <button type="button" id="theme-toggle-button"
                         class="toggle-button">☀</button> <button type="button" id="lang-toggle-button"
@@ -704,8 +759,8 @@
                             data-translate-key="outputLanguageLabel">لغة
                             المخرجات:</label>
                         <select class="form-control ui dropdown" id="language" name="language">
-                            <option value="عربي" selected data-translate-key="langArabic">عربي</option>
-                            <option value="English" data-translate-key="langEnglish">English</option>
+                            <option class="item" value="عربي" selected data-translate-key="langArabic">عربي</option>
+                            <option class="item" value="English" data-translate-key="langEnglish">English</option>
                         </select>
                     </div>
                     <div class="col-md-6 form-group select-icon"> <label for="dialect"
@@ -902,19 +957,19 @@
     </div>
     <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.5.0/dist/semantic.min.js"></script>
-    <script>
+    <!-- <script>
         $(document).ready(function () {
             $('.ui.dropdown').dropdown({
                 fullTextSearch: true
             });
         });
-    </script>
+    </script> -->
     <script>
         // --- كود JavaScript (مع تعديلات الترجمة لوصف الإعلانات + ترجمات الأنواع الجديدة) ---
         (function () { // IIFE
             const translations = {
                 ar: {
-                    mainTitle: "✨ مولد المحتوى الذكي لوكالة سحاب ✨", section1Title: "1. معلومات المشروع", projectNameLabel: "اسم المشروع:", businessTypeLabel: "نوع النشاط:", targetMarketLabel: "السوق المستهدف:", competitorsLabel: "المنافسون:", projectDescriptionLabel: "وصف المشروع/المنتج/الخدمة:", websiteLinkLabel: "رابط الموقع (إن وجد):", section2Title: "2. الجمهور المستهدف", audienceDemographicsLabel: "الجمهور (الديموغرافيا/الاهتمامات/الاحتياجات):", audienceStrengthLabel: "نقاط القوة/الميزة التنافسية للتركيز عليها:", section3Title: "3. النبرة والأسلوب", outputLanguageLabel: "لغة المخرجات:", langArabic: "عربي", langEnglish: "English", dialectLabel: "اللهجة (إذا كانت عربية):", dialectFusha: "الفصحى", dialectSaudiWhite: "السعودية - بيضاء", dialectSaudiNajdi: "السعودية - نجدية", dialectSaudiHejazi: "السعودية - حجازية", dialectGulf: "خليجية (عامة)", dialectEgyptian: "مصرية", dialectLevantine: "شامية", toneVoiceLabel: "نبرة الكلام:", selectOption: "-- اختر --", toneConfident: "واثق", toneNeutral: "محايد", toneFriendly: "ودي", toneInformal: "غير رسمي", toneEnthusiastic: "حماسي", toneEmpathetic: "متعاطف", toneHumorous: "فكاهي", toneStyleLabel: "أسلوب الكتابة:", styleClear: "واضح ومباشر", styleCreative: "إبداعي ومبتكر", styleStorytelling: "قصصي (Storytelling)", styleEducational: "تعليمي وتثقيفي", stylePersuasive: "مقنع (Persuasive)", toneFormalityLabel: "مستوى الرسمية:", formalityCasual: "عفوي وغير رسمي", formalityBalanced: "متوازن", formalityFormal: "رسمي", tonePersonalityLabel: "شخصية العلامة التجارية:", personalityApproachable: "قريب من الناس ومتعاون", personalityProfessional: "احترافية وموثوقة", personalityYouthful: "شبابية وعصرية", personalityLuxury: "فاخرة وحصرية", personalityInspirational: "ملهمة ومحفزة", personalityPlayful: "مرحة ومبتكرة", section4Title: "4. طلب التوليد", generationTypeLabel: "نوع التوليد المطلوب:",
+                    mainTitle: "مولد المحتوى الذكي لوكالة سحاب ", section1Title: "1. معلومات المشروع", projectNameLabel: "اسم المشروع:", businessTypeLabel: "نوع النشاط:", targetMarketLabel: "السوق المستهدف:", competitorsLabel: "المنافسون:", projectDescriptionLabel: "وصف المشروع/المنتج/الخدمة:", websiteLinkLabel: "رابط الموقع (إن وجد):", section2Title: "2. الجمهور المستهدف", audienceDemographicsLabel: "الجمهور (الديموغرافيا/الاهتمامات/الاحتياجات):", audienceStrengthLabel: "نقاط القوة/الميزة التنافسية للتركيز عليها:", section3Title: "3. النبرة والأسلوب", outputLanguageLabel: "لغة المخرجات:", langArabic: "عربي", langEnglish: "English", dialectLabel: "اللهجة (إذا كانت عربية):", dialectFusha: "الفصحى", dialectSaudiWhite: "السعودية - بيضاء", dialectSaudiNajdi: "السعودية - نجدية", dialectSaudiHejazi: "السعودية - حجازية", dialectGulf: "خليجية (عامة)", dialectEgyptian: "مصرية", dialectLevantine: "شامية", toneVoiceLabel: "نبرة الكلام:", selectOption: "-- اختر --", toneConfident: "واثق", toneNeutral: "محايد", toneFriendly: "ودي", toneInformal: "غير رسمي", toneEnthusiastic: "حماسي", toneEmpathetic: "متعاطف", toneHumorous: "فكاهي", toneStyleLabel: "أسلوب الكتابة:", styleClear: "واضح ومباشر", styleCreative: "إبداعي ومبتكر", styleStorytelling: "قصصي (Storytelling)", styleEducational: "تعليمي وتثقيفي", stylePersuasive: "مقنع (Persuasive)", toneFormalityLabel: "مستوى الرسمية:", formalityCasual: "عفوي وغير رسمي", formalityBalanced: "متوازن", formalityFormal: "رسمي", tonePersonalityLabel: "شخصية العلامة التجارية:", personalityApproachable: "قريب من الناس ومتعاون", personalityProfessional: "احترافية وموثوقة", personalityYouthful: "شبابية وعصرية", personalityLuxury: "فاخرة وحصرية", personalityInspirational: "ملهمة ومحفزة", personalityPlayful: "مرحة ومبتكرة", section4Title: "4. طلب التوليد", generationTypeLabel: "نوع التوليد المطلوب:",
                     // خيارات التوليد الأصلية
                     genTypeMonthlyPlan: "خطة محتوى شهري", genTypeAds: "توليد إعلانات", genTypeIdeas: "توليد أفكار", genTypeCampaign: "حملة اعلانية", genTypeSwot: "تحليل SWOT", genTypePersona: "وصف شخصية العميل المثالي", genTypeGoals: "اقتراح أهداف تسويقية (SMART)", genTypeCompetitor: "تحليل المنافسين", genTypeAdvantage: "تحديد الميزة التنافسية", genTypePlatformStrategy: "استراتيجية منصات التواصل", genTypePillars: "محاور المحتوى الرئيسية", genTypeTactics: "مقترحات تكتيكية",
                     // --- START: تمت إضافة ترجمات أنواع التوليد الجديدة هنا ---
@@ -931,7 +986,7 @@
                     descAIDA: "لفت الانتباه، إثارة الاهتمام، خلق الرغبة، الدعوة للإجراء.", descPAS: "تحديد المشكلة، تأزيمها أو تحريكها، تقديم الحل.", descFAB: "ذكر الميزات، شرح المزايا، توضيح الفوائد للعميل.", descReasonWhy: "تقديم أسباب منطقية ومقنعة للشراء.", descClassicIdea: "الاعتماد على فكرة إبداعية أو قصة كمحور للإعلان.", descHookFeatureCTA: "خطاف جذب الانتباه، ذكر ميزة رئيسية، دعوة مباشرة للإجراء.", descGeneral: ""
                 },
                 en: {
-                    mainTitle: "✨ Sahab Agency - Smart Content Generator ✨", section1Title: "1. Project Information", projectNameLabel: "Project Name:", businessTypeLabel: "Business Type:", targetMarketLabel: "Target Market:", competitorsLabel: "Competitors:", projectDescriptionLabel: "Project/Product/Service Description:", websiteLinkLabel: "Website Link (if any):", section2Title: "2. Target Audience", audienceDemographicsLabel: "Audience (Demographics/Interests/Needs):", audienceStrengthLabel: "Strengths/Competitive Advantage to Focus On:", section3Title: "3. Tone and Style", outputLanguageLabel: "Output Language:", langArabic: "عربي", langEnglish: "English", dialectLabel: "Dialect (if Arabic):", dialectFusha: "Formal (Fusha)", dialectSaudiWhite: "Saudi - White", dialectSaudiNajdi: "Saudi - Najdi", dialectSaudiHejazi: "Saudi - Hejazi", dialectGulf: "Gulf (General)", dialectEgyptian: "Egyptian", dialectLevantine: "Levantine", toneVoiceLabel: "Tone of Voice:", selectOption: "-- Select --", toneConfident: "Confident", toneNeutral: "Neutral", toneFriendly: "Friendly", toneInformal: "Informal", toneEnthusiastic: "Enthusiastic", toneEmpathetic: "Empathetic", toneHumorous: "Humorous", toneStyleLabel: "Writing Style:", styleClear: "Clear & Direct", styleCreative: "Creative & Innovative", styleStorytelling: "Storytelling", styleEducational: "Educational & Informative", stylePersuasive: "Persuasive", toneFormalityLabel: "Formality Level:", formalityCasual: "Casual & Informal", formalityBalanced: "Balanced", formalityFormal: "Formal", tonePersonalityLabel: "Brand Personality:", personalityApproachable: "Approachable & Collaborative", personalityProfessional: "Professional & Reliable", personalityYouthful: "Youthful & Modern", personalityLuxury: "Luxury & Exclusive", personalityInspirational: "Inspirational & Motivating", personalityPlayful: "Playful & Innovative", section4Title: "4. Generation Request", generationTypeLabel: "Generation Type Required:",
+                    mainTitle: "Sahab Agency - Smart Content Generator", section1Title: "1. Project Information", projectNameLabel: "Project Name:", businessTypeLabel: "Business Type:", targetMarketLabel: "Target Market:", competitorsLabel: "Competitors:", projectDescriptionLabel: "Project/Product/Service Description:", websiteLinkLabel: "Website Link (if any):", section2Title: "2. Target Audience", audienceDemographicsLabel: "Audience (Demographics/Interests/Needs):", audienceStrengthLabel: "Strengths/Competitive Advantage to Focus On:", section3Title: "3. Tone and Style", outputLanguageLabel: "Output Language:", langArabic: "عربي", langEnglish: "English", dialectLabel: "Dialect (if Arabic):", dialectFusha: "Formal (Fusha)", dialectSaudiWhite: "Saudi - White", dialectSaudiNajdi: "Saudi - Najdi", dialectSaudiHejazi: "Saudi - Hejazi", dialectGulf: "Gulf (General)", dialectEgyptian: "Egyptian", dialectLevantine: "Levantine", toneVoiceLabel: "Tone of Voice:", selectOption: "-- Select --", toneConfident: "Confident", toneNeutral: "Neutral", toneFriendly: "Friendly", toneInformal: "Informal", toneEnthusiastic: "Enthusiastic", toneEmpathetic: "Empathetic", toneHumorous: "Humorous", toneStyleLabel: "Writing Style:", styleClear: "Clear & Direct", styleCreative: "Creative & Innovative", styleStorytelling: "Storytelling", styleEducational: "Educational & Informative", stylePersuasive: "Persuasive", toneFormalityLabel: "Formality Level:", formalityCasual: "Casual & Informal", formalityBalanced: "Balanced", formalityFormal: "Formal", tonePersonalityLabel: "Brand Personality:", personalityApproachable: "Approachable & Collaborative", personalityProfessional: "Professional & Reliable", personalityYouthful: "Youthful & Modern", personalityLuxury: "Luxury & Exclusive", personalityInspirational: "Inspirational & Motivating", personalityPlayful: "Playful & Innovative", section4Title: "4. Generation Request", generationTypeLabel: "Generation Type Required:",
                     // Original Generation Types
                     genTypeMonthlyPlan: "Monthly Content Plan", genTypeAds: "Generate Ads", genTypeIdeas: "Generate Ideas", genTypeCampaign: "Ad Campaign", genTypeSwot: "SWOT Analysis", genTypePersona: "Ideal Customer Persona", genTypeGoals: "Suggest SMART Marketing Goals", genTypeCompetitor: "Competitor Analysis", genTypeAdvantage: "Identify Competitive Advantage", genTypePlatformStrategy: "Social Media Strategy", genTypePillars: "Content Pillars", genTypeTactics: "Tactical Suggestions",
                     // --- START: New Generation Type Translations Added Here ---
@@ -948,51 +1003,157 @@
                     descAIDA: "Attention, Interest, Desire, Action.", descPAS: "Problem, Agitate, Solution.", descFAB: "Features, Advantages, Benefits.", descReasonWhy: "Provide logical reasons to buy.", descClassicIdea: "Based on a creative idea or story as the ad's core.", descHookFeatureCTA: "Hook attention, mention a key feature, direct Call To Action.", descGeneral: ""
                 }
             };
-            // ... (باقي كود الجافاسكربت كما هو بدون تغيير في الدوال الأخرى) ...
-            const themeToggleButton = document.getElementById('theme-toggle-button'); const bodyElement = document.body; const langToggleButton = document.getElementById('lang-toggle-button'); let currentLang = 'ar';
-            const currentHour = new Date().getHours(); const timeBasedTheme = (currentHour >= 6 && currentHour < 18) ? 'light' : 'dark'; let currentTheme = timeBasedTheme;
-            function applyTheme(theme) { bodyElement.setAttribute('data-theme', theme); if (themeToggleButton) { themeToggleButton.textContent = theme === 'dark' ? '☀' : '🌙'; } }
-            function switchTheme() { const newTheme = bodyElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark'; applyTheme(newTheme); console.log(Theme manually switched to ${ newTheme }(Temporary)); } if (themeToggleButton) { themeToggleButton.addEventListener('click', switchTheme); }
-            function detectLanguage() { const browserLang = navigator.language || navigator.userLanguage; if (browserLang && browserLang.toLowerCase().startsWith('en')) { return 'en'; } return 'ar'; }
 
-            function setLanguage(lang) {
-                if (!translations[lang]) { console.error("Lang not supported:", lang); return; }
-                currentLang = lang; const langDict = translations[lang];
-                console.log(--- Setting Language to: ${ lang } -- -);
-                document.querySelectorAll('[data-translate-key]').forEach(element => {
-                    const key = element.getAttribute('data-translate-key');
-                    // console.log(Processing -> Tag:${element.tagName}, Key:${key}); // تم التعليق لتقليل اللوغات
-                    if (langDict[key] !== undefined) {
-                        const newText = langDict[key];
-                        // console.log(`   Found: "${newText}"`);
-                        try {
-                            if (element.tagName === 'OPTION') { element.textContent = newText; }
-                            else if (element.tagName === 'BUTTON' && element.id === 'submitButton') { element.textContent = newText; }
-                            else if (element.tagName !== 'INPUT' && element.tagName !== 'TEXTAREA') { element.textContent = newText; }
-                            // if (element.tagName !== 'INPUT' && element.tagName !== 'TEXTAREA') { console.log(`   Applied: "${element.textContent}"`); }
-                        } catch (e) { console.error(`   ERROR applying text for key ${key}: ${e}`); }
-                    } else { console.warn(`   Key NOT FOUND for ${lang}: ${key}`); }
-                });
-                document.querySelectorAll('[data-translate-placeholder-key]').forEach(element => {
-                    const key = element.getAttribute('data-translate-placeholder-key');
-                    if (langDict[key] !== undefined) { element.placeholder = langDict[key]; }
-                    else { console.warn(`   Placeholder key NOT FOUND for ${lang}: ${key}`); }
-                });
-                bodyElement.dir = (lang === 'ar') ? 'rtl' : 'ltr'; document.documentElement.lang = lang;
-                if (langToggleButton) { langToggleButton.textContent = (lang === 'ar') ? '🇬🇧' : '🇸🇦'; }
-                updateAdDescription();
-                localStorage.setItem('preferredLang', lang);
-                console.log(Language set to: ${ lang }.Body dir: ${ bodyElement.dir });
-                console.log(--- Finished Setting Language: ${ lang } -- -);
+            const themeToggleButton = document.getElementById('theme-toggle-button');
+            const bodyElement = document.body;
+            const langToggleButton = document.getElementById('lang-toggle-button');
+            let currentLang = 'ar';
+            const currentHour = new Date().getHours();
+            const timeBasedTheme = (currentHour >= 6 && currentHour < 18) ? 'light' : 'dark';
+            let currentTheme = timeBasedTheme;
+
+            function applyTheme(theme) {
+                bodyElement.setAttribute('data-theme', theme);
+                if (themeToggleButton) {
+                    themeToggleButton.textContent = theme === 'dark' ? '☀' : '🌙';
+                }
             }
 
-            function switchLanguage() { const newLang = (currentLang === 'ar') ? 'en' : 'ar'; setLanguage(newLang); } if (langToggleButton) { langToggleButton.addEventListener('click', switchLanguage); }
-            function handleConditionalFields() { const genTypeSelect = document.getElementById('generationType'); if (!genTypeSelect) return; const generationType = genTypeSelect.value; const numDaysField = document.getElementById('numDaysField'); const adTypeRow = document.getElementById('adTypeRow'); if (numDaysField) numDaysField.style.display = (generationType?.includes('خطة محتوى شهري') || generationType?.includes('Monthly Content Plan')) ? 'block' : 'none'; if (adTypeRow) adTypeRow.style.display = (generationType?.includes('إعلانات') || generationType?.includes('حملة اعلانيه') || generationType?.toLowerCase().includes('ads') || generationType?.toLowerCase().includes('campaign')) ? 'flex' : 'none'; }
-            const genTypeSelect = document.getElementById('generationType'); if (genTypeSelect) { genTypeSelect.addEventListener('change', handleConditionalFields); }
+            function switchTheme() {
+                const newTheme = bodyElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+                applyTheme(newTheme);
+            }
+
+            if (themeToggleButton) {
+                themeToggleButton.addEventListener('click', switchTheme);
+            }
+
+            function detectLanguage() {
+                const browserLang = navigator.language || navigator.userLanguage;
+                if (browserLang && browserLang.toLowerCase().startsWith('en')) {
+                    return 'en';
+                }
+                return 'ar';
+            }
+
+            function setLanguage(lang) {
+                if (!translations[lang]) {
+                    console.error("Lang not supported:", lang);
+                    return;
+                }
+
+                currentLang = lang;
+                const langDict = translations[lang];
+                const dropdownItems = document.querySelectorAll('.ui.dropdown .menu .item');
+
+                // Loop through elements with data-translate-key
+                document.querySelectorAll('[data-translate-key]').forEach(element => {
+                    const key = element.getAttribute('data-translate-key');
+                    const newText = langDict[key];
+                    if (newText === undefined) return;
+
+                    try {
+                        if (element.tagName === 'OPTION') {
+                            const parentSelect = element.closest('select');
+                            const oldValue = element.value;
+                            const wasSelected = element.selected;
+
+                            // Update text and value if applicable
+                            element.textContent = newText;
+
+                            if (key.startsWith('lang') || key.startsWith('dialect') ||
+                                key.startsWith('tone') || key.startsWith('style') ||
+                                key.startsWith('formality') || key.startsWith('personality') ||
+                                key.startsWith('genType') || key.startsWith('adType')) {
+                                element.value = newText;
+                            }
+
+                            // Re-select if this was selected before
+                            if (wasSelected && parentSelect) {
+                                parentSelect.value = element.value;
+                            }
+                        } else if (element.tagName === 'BUTTON' && element.id === 'submitButton') {
+                            element.textContent = newText;
+                        } else if (element.tagName !== 'INPUT' && element.tagName !== 'TEXTAREA') {
+                            element.textContent = newText;
+                        }
+                    } catch (e) {
+                        console.error(`Error applying translation for key ${key}:`, e);
+                    }
+                });
+
+                // Update placeholders
+                document.querySelectorAll('[data-translate-placeholder-key]').forEach(element => {
+                    const key = element.getAttribute('data-translate-placeholder-key');
+                    if (langDict[key] !== undefined) {
+                        element.placeholder = langDict[key];
+                    }
+                });
+
+                // Set document direction and lang attribute
+                bodyElement.dir = (lang === 'ar') ? 'rtl' : 'ltr';
+                document.documentElement.lang = lang;
+
+                // Update language toggle button
+                if (langToggleButton) {
+                    langToggleButton.textContent = (lang === 'ar') ? '🇬🇧' : '🇸🇦';
+                }
+
+                // Update dynamic descriptions if needed
+                updateAdDescription();
+                handleConditionalFields();
+                localStorage.setItem('preferredLang', lang);
+
+                // dropdownItems.forEach(item => {
+                //     const optionKey = item.getAttribute('data-value'); // Get the option key (e.g., 'option1')
+                //     item.textContent = translations[lang][optionKey]; // Set the text from the translation object
+                // });
+
+                // Re-initialize the dropdown after changing language
+                $('.ui.dropdown').dropdown('destroy').dropdown({
+                    fullTextSearch: true
+                });
+            }
+
+            function switchLanguage() {
+                const newLang = (currentLang === 'ar') ? 'en' : 'ar';
+
+                setLanguage(newLang);
+
+
+            }
+
+            if (langToggleButton) {
+                langToggleButton.addEventListener('click', switchLanguage);
+            }
+
+            function handleConditionalFields() {
+                const genTypeSelect = document.getElementById('generationType');
+                if (!genTypeSelect) return;
+                const generationType = genTypeSelect.value;
+                const numDaysField = document.getElementById('numDaysField');
+                const adTypeRow = document.getElementById('adTypeRow');
+                if (numDaysField) numDaysField.style.display = (generationType?.includes('خطة محتوى شهري') || generationType?.includes('Monthly Content Plan')) ? 'block' : 'none';
+                if (adTypeRow) adTypeRow.style.display = (generationType?.includes('إعلانات') || generationType?.includes('حملة اعلانيه') || generationType?.toLowerCase().includes('ads') || generationType?.toLowerCase().includes('campaign')) ? 'flex' : 'none';
+            }
+
+            const genTypeSelect = document.getElementById('generationType');
+            if (genTypeSelect) {
+                genTypeSelect.addEventListener('change', handleConditionalFields);
+            }
 
             const adTypeSelect = document.getElementById('adType');
             const adStructureDescInput = document.getElementById('adStructureDesc');
-            const adTypeDescriptionKeys = { "AIDA": "descAIDA", "PAS": "descPAS", "FAB": "descFAB", "Reason Why": "descReasonWhy", "Classic idea": "descClassicIdea", "Hook – Feature CTA": "descHookFeatureCTA", "عام": "descGeneral" };
+            const adTypeDescriptionKeys = {
+                "AIDA": "descAIDA",
+                "PAS": "descPAS",
+                "FAB": "descFAB",
+                "Reason Why": "descReasonWhy",
+                "Classic idea": "descClassicIdea",
+                "Hook – Feature CTA": "descHookFeatureCTA",
+                "عام": "descGeneral",
+                "General": "descGeneral"
+            };
 
             function updateAdDescription() {
                 if (!adTypeSelect || !adStructureDescInput || !translations[currentLang]) return;
@@ -1004,12 +1165,92 @@
                     adStructureDescInput.value = '';
                 }
             }
-            if (adTypeSelect) { adTypeSelect.addEventListener('change', updateAdDescription); }
 
-            document.addEventListener('DOMContentLoaded', function () { const initialLang = detectLanguage(); setLanguage(initialLang); applyTheme(currentTheme); handleConditionalFields(); updateAdDescription(); console.log(Initial lang: ${ initialLang }, Initial theme: ${ currentTheme }); });
-            document.getElementById("inputForm").addEventListener("submit", function (event) { event.preventDefault(); const statusDiv = document.getElementById("status"); const submitButton = document.getElementById("submitButton"); statusDiv.textContent = translations[currentLang].loadingMessage; statusDiv.className = "loading"; statusDiv.style.display = 'block'; submitButton.disabled = true; console.log("Submit clicked..."); try { const formElements = event.target.elements; const formData = {}; let missingRequired = false; Array.from(formElements).forEach(el => { if (el.required) el.style.borderColor = ""; }); for (let i = 0; i < formElements.length; i++) { const element = formElements[i]; const isVisible = !!(element.offsetWidth || element.offsetHeight || element.getClientRects().length); if (element.name && !element.disabled && element.type !== 'submit' && element.type !== 'button') { formData[element.name] = element.value; if (element.required && isVisible && !element.value) { console.warn(Required visible field '${element.name}' empty.); missingRequired = true; element.style.borderColor = "red"; } } } if (missingRequired) { throw new Error(translations[currentLang].requiredFieldsError); } console.log("Form Data Sending:", formData); google.script.run.withSuccessHandler(function (response) { submitButton.disabled = false; console.log("Server Response:", response); if (response && response.success) { const successMsg = translations[currentLang].successMessage.replace('{sheetName}', response.message.match(/'(.*?)'/)?.[1] || 'Results'); statusDiv.textContent = successMsg; statusDiv.className = "success"; setTimeout(function () { try { google.script.host.close(); } catch (e) { } }, 4000); } else { const errorMsg = translations[currentLang].errorMessage.replace('{error}', response ? response.message : "Unknown error"); statusDiv.textContent = errorMsg; statusDiv.className = "error"; } }).withFailureHandler(function (error) { submitButton.disabled = false; const connErrorMsg = translations[currentLang].connectionErrorMessage.replace('{error}', error.message); statusDiv.textContent = connErrorMsg; statusDiv.className = "error"; console.error("Failure Handler:", error); }).processInputDataFromDialog(formData); } catch (err) { submitButton.disabled = false; const formErrorMsg = translations[currentLang].formErrorMessage.replace('{error}', err.message); statusDiv.textContent = formErrorMsg; statusDiv.className = "error"; console.error("Form Error:", err); } });
+            if (adTypeSelect) {
+                adTypeSelect.addEventListener('change', updateAdDescription);
+            }
+
+            document.addEventListener('DOMContentLoaded', function () {
+                const initialLang = detectLanguage();
+                setLanguage(initialLang);
+                applyTheme(currentTheme);
+                handleConditionalFields();
+                updateAdDescription();
+
+
+            });
+
+            document.getElementById("inputForm").addEventListener("submit", function (event) {
+                event.preventDefault();
+                const statusDiv = document.getElementById("status");
+                const submitButton = document.getElementById("submitButton");
+                statusDiv.textContent = translations[currentLang].loadingMessage;
+                statusDiv.className = "loading";
+                statusDiv.style.display = 'block';
+                submitButton.disabled = true;
+
+                try {
+                    const formElements = event.target.elements;
+                    const formData = {};
+                    let missingRequired = false;
+
+                    Array.from(formElements).forEach(el => {
+                        if (el.required) el.style.borderColor = "";
+                    });
+
+                    for (let i = 0; i < formElements.length; i++) {
+                        const element = formElements[i];
+                        const isVisible = !!(element.offsetWidth || element.offsetHeight || element.getClientRects().length);
+                        if (element.name && !element.disabled && element.type !== 'submit' && element.type !== 'button') {
+                            formData[element.name] = element.value;
+                            if (element.required && isVisible && !element.value) {
+                                missingRequired = true;
+                                element.style.borderColor = "red";
+                            }
+                        }
+                    }
+
+                    if (missingRequired) {
+                        throw new Error(translations[currentLang].requiredFieldsError);
+                    }
+
+                    google.script.run
+                        .withSuccessHandler(function (response) {
+                            submitButton.disabled = false;
+                            if (response && response.success) {
+                                const successMsg = translations[currentLang].successMessage.replace('{sheetName}', response.message.match(/'(.*?)'/)?.[1] || 'Results');
+                                statusDiv.textContent = successMsg;
+                                statusDiv.className = "success";
+                                setTimeout(function () {
+                                    try {
+                                        google.script.host.close();
+                                    } catch (e) { }
+                                }, 4000);
+                            } else {
+                                const errorMsg = translations[currentLang].errorMessage.replace('{error}', response ? response.message : "Unknown error");
+                                statusDiv.textContent = errorMsg;
+                                statusDiv.className = "error";
+                            }
+                        })
+                        .withFailureHandler(function (error) {
+                            submitButton.disabled = false;
+                            const connErrorMsg = translations[currentLang].connectionErrorMessage.replace('{error}', error.message);
+                            statusDiv.textContent = connErrorMsg;
+                            statusDiv.className = "error";
+                        })
+                        .processInputDataFromDialog(formData);
+                } catch (err) {
+                    submitButton.disabled = false;
+                    const formErrorMsg = translations[currentLang].formErrorMessage.replace('{error}', err.message);
+                    statusDiv.textContent = formErrorMsg;
+                    statusDiv.className = "error";
+                }
+            });
+
         })(); // End of IIFE
+
     </script>
+
 </body>
 
 </html>
